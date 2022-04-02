@@ -1,44 +1,60 @@
-const {asClass, createContainer, asFunction, asValue} = require('awilix');
-const StartUp = require('./startup');
-const Server = require('./server');
+const { asClass, createContainer, asFunction, asValue } = require("awilix");
 
+// Startup
+const StartUp = require("./startup");
+const Server = require("./server");
 const config = require("../config/environments");
+const db = require("../dal/models");
 
-const UsuarioRoutes = require("../api/routes/usuario.routes")
-const {UsuarioController} = require("../api/controllers")
-const {UsuarioService} = require("../services")
-const {UsuarioRepository} = require("../dal/repositories")
-const {UsuarioBusiness} = require("../domain/")
+// Routes
+const Routes = require("../api/routes");
+const UsuarioRoutes = require("../api/routes/usuario.routes");
 
-const Routes = require("../api/routes")
-const db = require("../dal/models")
+// Controllers
+const { UsuarioController } = require("../api/controllers");
+
+// SERVICIOS
+const { UsuarioService } = require("../services");
+
+// REPOSITORIOS
+const { UsuarioRepository } = require("../dal/repositories");
+
+// BUSINESS
+const { UsuarioBusiness } = require("../domain/");
 
 const container = createContainer();
 
-container.register({
+container
+  .register({
     app: asClass(StartUp).singleton(),
     router: asFunction(Routes).singleton(),
-    server: asClass(Server).singleton()
-})
-.register({
-    config: asValue(config)
-})
-.register({
-    db: asValue(db)
-})
-.register({
-    UsuarioController: asClass(UsuarioController).singleton()
-})
-.register({
-    UsuarioRoutes: asFunction(UsuarioRoutes).singleton()
-})
-.register({
+    server: asClass(Server).singleton(),
+  })
+  .register({
+    config: asValue(config),
+  })
+  .register({
+    db: asValue(db),
+  })
+  .register({
+    // Registrar controllers
+    UsuarioController: asClass(UsuarioController).singleton(),
+  })
+  .register({
+    // Registrar rutas
+    UsuarioRoutes: asFunction(UsuarioRoutes).singleton(),
+  })
+  .register({
+    // Registrar repositorios
     UsuarioRepository: asClass(UsuarioRepository).singleton(),
+  })
+  .register({
+    // Registrar business
+    UsuarioBusiness: asClass(UsuarioBusiness).singleton(),
+  })
+  .register({
+    // Registrar servicios
     UsuarioService: asClass(UsuarioService).singleton(),
-    UsuarioBusiness: asClass(UsuarioBusiness).singleton()
-})
-
-
-
+  });
 
 module.exports = container;

@@ -14,6 +14,11 @@ class UsuarioController {
       message: usuarios,
     });
   }
+
+  async get(req, res){
+    let { params } = req.body;
+    let usuario = await this._usuarioService.get()
+  }
 }
 
 module.exports = UsuarioController;

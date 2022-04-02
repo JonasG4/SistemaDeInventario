@@ -30,6 +30,10 @@ class BaseBusiness {
         return mapper(this.entityToMap, updatedEntity.toJSON());
     }
 
+    async delete(id){
+        const deleteEntity = await this._entityRepository.delete(id);
+        return mapper(this.entityToMap, deleteEntity.toJSON());
+    }
 }
 
 module.exports = BaseBusiness;
