@@ -1,3 +1,4 @@
 module.exports = {
-    UsuarioService : require("./usuario.service")
+    UsuarioService : require("./usuario.service"),
+    RolService : require("./rol.service")
 }
