@@ -24,6 +24,7 @@ class BaseBusiness {
     }
 
     async update(id, entity){
+        entity.id = id;
         entity = mapper(this._entityRepository, entity);
         
         const updatedEntity = await this._entityRepository.update(id, entity);
@@ -31,8 +32,7 @@ class BaseBusiness {
     }
 
     async delete(id){
-        const deleteEntity = await this._entityRepository.delete(id);
-        return mapper(this.entityToMap, deleteEntity.toJSON());
+        return await this._entityRepository.delete(id);
     }
 }
 
