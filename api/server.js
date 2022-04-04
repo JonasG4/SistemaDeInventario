@@ -14,6 +14,7 @@ class Server{
             const http = this._express.listen(this._config.PORT, () => {
                 const { port } = http.address();
                 console.log("Application is running on port: " + port);
+                console.log(process.env.DB_USERNAME);
                 resolve();
             })
         })
