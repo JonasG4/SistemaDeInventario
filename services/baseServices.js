@@ -5,6 +5,7 @@ class BaseService{
 
     async getAll(){
         const entities = await this._entityBusiness.getAll();
+        console.log("SERVICES: ", entities);
         return entities;
     }
 
@@ -19,6 +20,8 @@ class BaseService{
     }
 
     async update(id, entity){
+
+        console.log("aaaaaaaaa Service", entity);
         const updatedEntity = await this._entityBusiness.update(id, entity)
         return updatedEntity;
     }

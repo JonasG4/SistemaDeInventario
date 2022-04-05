@@ -1,3 +1,3 @@
 module.exports = {
-    UsuarioDto: require('./usuario.dto')
+    UsuarioDto: require('./usuarioDto')
 }

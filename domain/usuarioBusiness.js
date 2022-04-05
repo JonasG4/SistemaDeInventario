@@ -1,4 +1,4 @@
-const BaseBusiness = require("./base.business");
+const BaseBusiness = require("./baseBusiness");
 const { Usuario } = require("./models");
 
 class UsuarioBusiness extends BaseBusiness {
