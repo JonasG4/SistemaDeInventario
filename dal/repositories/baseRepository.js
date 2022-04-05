@@ -24,7 +24,7 @@ class BaseRepository {
   }
 
   delete(id){
-    return this._db[this.entity].remove({where: {id}});
+    return this._db[this.entity].destroy({where: {id}});
   }
 }
 
