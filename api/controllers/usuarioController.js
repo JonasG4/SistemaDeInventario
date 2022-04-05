@@ -30,7 +30,8 @@ class UsuarioController {
   }
 
   async crearUsuario(req, res){
-    const { body } = req;
+    // console.log("aaaaaaaaa",req);
+    const { body }  = req;
 
     const crearUsuario = await this._usuarioService.create(body);
     return res.status(201).send({
@@ -42,7 +43,6 @@ class UsuarioController {
   async modificarUsuario(req, res){
     const { body } = req;
     const { id } = req.params;
-
     await this._usuarioService.update(id, body);
     return res.status(204).send({
       error: false,

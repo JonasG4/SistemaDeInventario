@@ -1,4 +1,4 @@
-const BaseService = require("./base.service");
+const BaseService = require("./baseServices");
 
 class UsuarioService extends BaseService {
   constructor({ UsuarioBusiness }) {

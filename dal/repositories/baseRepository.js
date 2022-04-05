@@ -19,7 +19,12 @@ class BaseRepository {
   update(id, entity) {
     delete entity.creadAt;
     delete entity.updatedAt;
+    console.log("si entra base repo")
     return this._db[this.entity].update(entity, { where: { id } });
+  }
+
+  delete(id){
+    return this._db[this.entity].remove({where: {id}});
   }
 }
 

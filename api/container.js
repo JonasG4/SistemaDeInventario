@@ -8,7 +8,7 @@ const db = require("../dal/models");
 
 // Routes
 const Routes = require("../api/routes");
-const UsuarioRoutes = require("../api/routes/usuario.routes");
+const UsuarioRoutes = require("../api/routes/usuarioRoutes");
 
 // Controllers
 const { UsuarioController } = require("../api/controllers");

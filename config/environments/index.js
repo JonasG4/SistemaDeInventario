@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const PRODUCTION = require("./production");
-const DEVELOPMENT = require("./development");
+const DEVELOPMENT = require("./dev");
 const TEST = require("./test");
 const {NODE_ENV} = process.env;
 
