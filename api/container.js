@@ -23,7 +23,7 @@ const { UsuarioRepository } = require("../dal/repositories");
 const { UsuarioBusiness } = require("../domain/");
 
 const container = createContainer();
-
+//registra todo los servicios a utilizar 
 container
   .register({
     app: asClass(StartUp).singleton(),

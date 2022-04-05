@@ -3,7 +3,7 @@ class BaseRepository {
     this._db = db;
     this.entity = entity;
   }
-
+  // general queries
   getAll() {
     return this._db[this.entity].findAll();
   }
