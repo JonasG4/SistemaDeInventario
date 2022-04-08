@@ -9,18 +9,19 @@ const db = require("../dal/models");
 // Routes
 const Routes = require("../api/routes");
 const UsuarioRoutes = require("../api/routes/usuarioRoutes");
+const CategoriaRoutes = require('../api/routes/categoriaRoutes');
 
 // Controllers
-const { UsuarioController } = require("../api/controllers");
+const { UsuarioController, CategoriaController } = require("../api/controllers");
 
 // SERVICIOS
-const { UsuarioService } = require("../services");
+const { UsuarioService,CategoriaService } = require("../services");
 
 // REPOSITORIOS
-const { UsuarioRepository } = require("../dal/repositories");
+const { UsuarioRepository,CategoriaRepository } = require("../dal/repositories");
 
 // BUSINESS
-const { UsuarioBusiness } = require("../domain/");
+const { UsuarioBusiness,CategoriasBusiness } = require("../domain/");
 
 const container = createContainer();
 //registra todo los servicios a utilizar 
@@ -39,22 +40,27 @@ container
   .register({
     // Registrar controllers
     UsuarioController: asClass(UsuarioController).singleton(),
+    CategoriaController: asClass(CategoriaController).singleton()
   })
   .register({
     // Registrar rutas
     UsuarioRoutes: asFunction(UsuarioRoutes).singleton(),
+    CategoriaRoutes: asFunction(CategoriaRoutes).singleton()
   })
   .register({
     // Registrar repositorios
     UsuarioRepository: asClass(UsuarioRepository).singleton(),
+    CategoriaRepository: asClass(CategoriaRepository).singleton()
   })
   .register({
     // Registrar business
     UsuarioBusiness: asClass(UsuarioBusiness).singleton(),
+    CategoriasBusiness: asClass(CategoriasBusiness).singleton()
   })
   .register({
     // Registrar servicios
     UsuarioService: asClass(UsuarioService).singleton(),
+    CategoriaService: asClass(CategoriaService).singleton()
   });
 
 module.exports = container;

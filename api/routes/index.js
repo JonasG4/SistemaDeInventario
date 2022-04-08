@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const compression = require("compression");
 
-module.exports = function ({ UsuarioRoutes }) {
+module.exports = function ({ UsuarioRoutes, CategoriaRoutes }) {
   const router = Router();
   const apiRoute = Router();
 
@@ -13,6 +13,7 @@ module.exports = function ({ UsuarioRoutes }) {
   .use(compression());
 
   apiRoute.use("/usuario", UsuarioRoutes);
+  apiRoute.use('/categorias', CategoriaRoutes);
   router.use("/api", apiRoute);
 
   return router;

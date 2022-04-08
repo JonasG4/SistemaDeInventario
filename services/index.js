@@ -1,3 +1,4 @@
 module.exports = {
-    UsuarioService : require("./usuarioServices")
+    UsuarioService : require("./usuarioServices"),
+    CategoriaService: require('./categoriaServices')
 }

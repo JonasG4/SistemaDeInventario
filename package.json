@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate" : "npx sequelize-cli db:migrate --url 'postgres://postgres:postgres@localhost/DB_SYSMP'"
+    "migrate" : "npx sequelize-cli db:migrate --url 'postgres://postgres:postgres@localhost/DB_SYSMP'",
+    "dev": "node ./index.js"
   },
   "keywords": [],
   "author": "",
