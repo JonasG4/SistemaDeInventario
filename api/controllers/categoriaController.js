@@ -8,7 +8,7 @@ class CategoriaController {
 
   async getCategorias(req, res) {
     let categorias = await this._categoriaService.getAll();
-    categorias = usuarios.map((categoria) => mapper(CategoriaDto, categoria));
+    categorias = categorias.map((categoria) => mapper(CategoriaDto, categoria));
     return res.send({
       error: false,
       message: categorias,
@@ -17,23 +17,22 @@ class CategoriaController {
 
   async getCategoria(req, res) {
     let { id } = req.params;
-    let usuario = await this._categoriaService.get(id);
-    if (!usuario) {
+    let categoria = await this._categoriaService.get(id);
+    if (!categoria) {
       return res.status(404).send();
     }
 
-    usuario = mapper(UsuarioDto, usuario);
+    categoria = mapper(CategoriaDto, categoria);
     return res.send({
       error: false,
-      usuario: usuario,
+      categoria: categoria,
     });
   }
 
   async crearCategoria(req, res){
     // console.log("aaaaaaaaa",req);
     const { body }  = req;
-
-    const crearUsuario = await this._categoriaService.create(body);
+    const crearCategoria = await this._categoriaService.create(body);
     return res.status(201).send({
       error: false,
       message: "Categoria creado con exito!"
