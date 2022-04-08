@@ -3,7 +3,11 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Usuario extends Model {
     static associate(models) {
-     Usuario.hasMany(models.Roles, {foreignKey: "id_rol"})   
+      //Relacionar tablas
+      //Un usuario solo puede tener un rol
+      Usuario.belongsTo(models.Roles, {
+        foreignKey: "id_rol",
+      });
     }
   }
   Usuario.init(
@@ -37,10 +41,6 @@ module.exports = (sequelize, DataTypes) => {
       id_rol: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: "roles",
-          key: "id_rol"
-        }
       },
       estado: {
         type: DataTypes.INTEGER,
@@ -53,16 +53,18 @@ module.exports = (sequelize, DataTypes) => {
       created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
+        allowNull: false
       },
-      update_at: {
+      updated_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
+        allowNull: false
       },
       created_by: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "root"
-      }
+        defaultValue: "root",
+      },
     },
     {
       sequelize,

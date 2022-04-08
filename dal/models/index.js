@@ -9,7 +9,7 @@ const config = require("../../config/environments");
 const db = {};
 
 let sequelize = new Sequelize(config.database, config.username, config.password, config);
-
+  console.log(config.database);
 fs
   .readdirSync(__dirname)
   .filter(file => {
