@@ -8,7 +8,9 @@ class UsuarioController {
 
   async getUsuarios(req, res) {
     let usuarios = await this._usuarioService.getAll();
+    console.log("usuario: ", usuarios);
     usuarios = usuarios.map((usuario) => mapper(UsuarioDto, usuario));
+    console.log("usuario mapped: ", usuarios);
     return res.send({
       error: false,
       message: usuarios,

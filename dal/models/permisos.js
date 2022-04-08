@@ -8,12 +8,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Permisos.belongsTo(models.Rol_permisos, {
+        foreignKey: 'id_permiso',
+      });
+
     }
   }
   Permisos.init(
     {
-      id_rol: {
+      id_permiso: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
