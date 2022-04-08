@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Categorias', {
+    await queryInterface.createTable('categorias', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,24 +10,23 @@ module.exports = {
       },
       nombre: {
         type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       descripcion: {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
+      created_at: {
+        defaultValue: Sequelize.NOW,
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Categorias');
+    await queryInterface.dropTable('categorias');
   }
 };
+
+//npx sequelize-cli seed:generate  //usuario-business

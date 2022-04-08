@@ -22,3 +22,6 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Categorias;
 };
+
+//1 a muchos
+//
