@@ -10,7 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Rol_permisos.hasMany(models.Permisos, {
+        foreignKey: "id_permiso",
+      });
+
+      Rol_permisos.hasMany(models.Roles, {
+        foreignKey: 'id_rol',
+      });
     }
   }
   Rol_permisos.init(
@@ -25,16 +31,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: Roles,
-          key: id_rol,
-        },
+          model:'Roles',
+          key:'id_rol'
+        }
       },
       id_permiso: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: Permisos,
-          key: id_permiso
+         model:'Permisos',
+         key:'id_permiso' 
         }
       }
     },

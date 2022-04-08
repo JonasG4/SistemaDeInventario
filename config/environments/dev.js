@@ -6,7 +6,7 @@ module.exports = {
   host: process.env.HOST || "127.0.0.1",
   username: process.env.DB_USERNAME || "postgres",
   password: process.env.DB_PASSWORD || "postgres",
-  database: process.env.DB || "DB_SYSMP",
+  database: process.env.DB_NAME,
   dialect: "postgres",
 
   //CONFIG SEQUELIZE
