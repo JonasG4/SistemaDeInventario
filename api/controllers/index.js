@@ -1,3 +1,5 @@
 module.exports = {
-    UsuarioController: require('./usuarioController')
+    UsuarioController: require('./usuarioController'),
+    RolController: require('./rolController'),
+    AuthController: require('./authController.js')
 };

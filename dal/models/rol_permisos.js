@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       Rol_permisos.hasMany(models.Roles, {
         foreignKey: 'id_rol',
       });
-    }
+    } 
   }
   Rol_permisos.init(
     {

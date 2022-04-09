@@ -8,8 +8,7 @@ class BaseBusiness {
 
     async getAll(){
         const entities = await this._entityRepository.getAll();
-        console.log("BUSINESS", entities);
-        return entities.map(entity => mapper(this.entityToMap, entity.toJSON()));
+        return entities.map(entity => entity.toJSON());
     }
 
     async get(id){
@@ -26,11 +25,9 @@ class BaseBusiness {
 
     async update(id, entity){
         entity.id = id;
-
         entity = mapper(this.entityToMap, entity);
 
         const updatedEntity = await this._entityRepository.update(id, entity);
-        console.log("aaaaaaa",updatedEntity);
         return mapper(this.entityToMap, updatedEntity);
     }
 
