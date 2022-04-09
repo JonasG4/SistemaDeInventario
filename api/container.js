@@ -11,17 +11,20 @@ const Routes = require("../api/routes");
 const UsuarioRoutes = require("../api/routes/usuarioRoutes");
 const RolRoutes = require("../api/routes/rolRoutes");
 const AuthRoutes = require("./routes/authRoutes")
+const CategoriaRoutes = require('../api/routes/categoriaRoutes');
+const ProductoRoutes = require('../api/routes/productoRoutes');
+
 // Controllers
-const { UsuarioController, RolController, AuthController } = require("../api/controllers");
+const { UsuarioController, CategoriaController, ProductoController, RolController, AuthController } = require("../api/controllers");
 
 // SERVICIOS
-const { UsuarioService } = require("../services");
+const { UsuarioService,CategoriaService, ProductoService } = require("../services");
 
 // REPOSITORIOS
-const { UsuarioRepository } = require("../dal/repositories");
+const { UsuarioRepository,CategoriaRepository, ProductoRepository } = require("../dal/repositories");
 
 // BUSINESS
-const { UsuarioBusiness } = require("../domain/");
+const { UsuarioBusiness,CategoriasBusiness, ProductoBusiness } = require("../domain/");
 
 const container = createContainer();
 //registra todo los servicios a utilizar 
@@ -40,26 +43,36 @@ container
   .register({
     // Registrar controllers
     UsuarioController: asClass(UsuarioController).singleton(),
+    CategoriaController: asClass(CategoriaController).singleton(),
+    ProductoController: asClass(ProductoController).singleton(),
     RolController: asClass(RolController).singleton(),
     AuthController: asClass(AuthController).singleton()
   })
   .register({
     // Registrar rutas
     UsuarioRoutes: asFunction(UsuarioRoutes).singleton(),
+    CategoriaRoutes: asFunction(CategoriaRoutes).singleton(),
+    ProductoRoutes: asFunction(ProductoRoutes).singleton(),
     RolRoutes: asFunction(RolRoutes).singleton(),
     AuthRoutes: asFunction(AuthRoutes).singleton()
   })
   .register({
     // Registrar repositorios
     UsuarioRepository: asClass(UsuarioRepository).singleton(),
+    CategoriaRepository: asClass(CategoriaRepository).singleton(),
+    ProductoRepository: asClass(ProductoRepository).singleton()
   })
   .register({
     // Registrar business
     UsuarioBusiness: asClass(UsuarioBusiness).singleton(),
+    CategoriasBusiness: asClass(CategoriasBusiness).singleton(),
+    ProductoBusiness: asClass(ProductoBusiness).singleton()
   })
   .register({
     // Registrar servicios
     UsuarioService: asClass(UsuarioService).singleton(),
+    CategoriaService: asClass(CategoriaService).singleton(),
+    ProductoService: asClass(ProductoService).singleton()
   });
 
 module.exports = container;

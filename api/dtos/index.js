@@ -1,4 +1,6 @@
 module.exports = {
     UsuarioDto: require('./usuarioDto'),
-    RolDto: require('./rolDto')
+    CategoriaDto: require('./categoriaDto'),
+    RolDto: require('./rolDto'),
+    ProductoDto: require('./productoDto')
 }
