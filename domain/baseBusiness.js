@@ -8,7 +8,6 @@ class BaseBusiness {
 
     async getAll(){
         const entities = await this._entityRepository.getAll();
-        console.log('entities');
         return entities.map(entity => mapper(this.entityToMap, entity.toJSON()));
         
     }

@@ -10,18 +10,19 @@ const db = require("../dal/models");
 const Routes = require("../api/routes");
 const UsuarioRoutes = require("../api/routes/usuarioRoutes");
 const CategoriaRoutes = require('../api/routes/categoriaRoutes');
+const ProductoRoutes = require('../api/routes/productoRoutes');
 
 // Controllers
-const { UsuarioController, CategoriaController } = require("../api/controllers");
+const { UsuarioController, CategoriaController, ProductoController } = require("../api/controllers");
 
 // SERVICIOS
-const { UsuarioService,CategoriaService } = require("../services");
+const { UsuarioService,CategoriaService, ProductoService } = require("../services");
 
 // REPOSITORIOS
-const { UsuarioRepository,CategoriaRepository } = require("../dal/repositories");
+const { UsuarioRepository,CategoriaRepository, ProductoRepository } = require("../dal/repositories");
 
 // BUSINESS
-const { UsuarioBusiness,CategoriasBusiness } = require("../domain/");
+const { UsuarioBusiness,CategoriasBusiness, ProductoBusiness } = require("../domain/");
 
 const container = createContainer();
 //registra todo los servicios a utilizar 
@@ -40,27 +41,32 @@ container
   .register({
     // Registrar controllers
     UsuarioController: asClass(UsuarioController).singleton(),
-    CategoriaController: asClass(CategoriaController).singleton()
+    CategoriaController: asClass(CategoriaController).singleton(),
+    ProductoController: asClass(ProductoController).singleton()
   })
   .register({
     // Registrar rutas
     UsuarioRoutes: asFunction(UsuarioRoutes).singleton(),
-    CategoriaRoutes: asFunction(CategoriaRoutes).singleton()
+    CategoriaRoutes: asFunction(CategoriaRoutes).singleton(),
+    ProductoRoutes: asFunction(ProductoRoutes).singleton()
   })
   .register({
     // Registrar repositorios
     UsuarioRepository: asClass(UsuarioRepository).singleton(),
-    CategoriaRepository: asClass(CategoriaRepository).singleton()
+    CategoriaRepository: asClass(CategoriaRepository).singleton(),
+    ProductoRepository: asClass(ProductoRepository).singleton()
   })
   .register({
     // Registrar business
     UsuarioBusiness: asClass(UsuarioBusiness).singleton(),
-    CategoriasBusiness: asClass(CategoriasBusiness).singleton()
+    CategoriasBusiness: asClass(CategoriasBusiness).singleton(),
+    ProductoBusiness: asClass(ProductoBusiness).singleton()
   })
   .register({
     // Registrar servicios
     UsuarioService: asClass(UsuarioService).singleton(),
-    CategoriaService: asClass(CategoriaService).singleton()
+    CategoriaService: asClass(CategoriaService).singleton(),
+    ProductoService: asClass(ProductoService).singleton()
   });
 
 module.exports = container;
