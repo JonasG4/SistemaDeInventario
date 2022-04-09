@@ -6,9 +6,9 @@ module.exports = function({UsuarioController}){
 
     router.get('/', UsuarioController.getUsuarios.bind(UsuarioController));
     router.get('/:id', UsuarioController.getUsuario.bind(UsuarioController));
-    router.post('/', UsuarioController.crearUsuario.bind(UsuarioController));
-    router.put('/:id', UsuarioController.modificarUsuario.bind(UsuarioController));
-    router.delete('/:id', UsuarioController.borrarUsuario.bind(UsuarioController));
+    router.post('/', UsuarioController.createUsuario.bind(UsuarioController));
+    router.put('/:id', UsuarioController.updateUsuario.bind(UsuarioController));
+    router.delete('/:id', UsuarioController.deleteUsuario.bind(UsuarioController));
 
     return router;
 };

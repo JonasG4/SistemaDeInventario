@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
       nombre: {
         type: DataTypes.STRING(25),
         allowNull: false,
+        validate: {
+          isAlpha: {
+            args: true,
+            msg: "El nombre no puede contener números."
+          }
+        }
       },
       apellido: DataTypes.STRING(25),
       email: {
@@ -28,14 +34,20 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         allowNull: false,
         validate: {
-          isEmail: true,
+          isEmail: {
+            args: true,
+            msg: "che pibe escribi bien el correo, va?"
+          },
         },
       },
       password: {
         type: DataTypes.STRING(100),
         allowNull: false,
         validate: {
-          min: 8,
+          len: {
+            args: [8,255],
+            msg: "La contraseña debe tener un minimo de 8 carácteres"
+          }
         },
       },
       id_rol: {

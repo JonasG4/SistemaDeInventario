@@ -9,9 +9,10 @@ const db = require("../dal/models");
 // Routes
 const Routes = require("../api/routes");
 const UsuarioRoutes = require("../api/routes/usuarioRoutes");
-
+const RolRoutes = require("../api/routes/rolRoutes");
+const AuthRoutes = require("./routes/authRoutes")
 // Controllers
-const { UsuarioController } = require("../api/controllers");
+const { UsuarioController, RolController, AuthController } = require("../api/controllers");
 
 // SERVICIOS
 const { UsuarioService } = require("../services");
@@ -39,10 +40,14 @@ container
   .register({
     // Registrar controllers
     UsuarioController: asClass(UsuarioController).singleton(),
+    RolController: asClass(RolController).singleton(),
+    AuthController: asClass(AuthController).singleton()
   })
   .register({
     // Registrar rutas
     UsuarioRoutes: asFunction(UsuarioRoutes).singleton(),
+    RolRoutes: asFunction(RolRoutes).singleton(),
+    AuthRoutes: asFunction(AuthRoutes).singleton()
   })
   .register({
     // Registrar repositorios

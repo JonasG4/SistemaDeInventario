@@ -25,14 +25,15 @@ module.exports = {
         },
       },
       password: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(255),
         allowNull: false,
         validate: {
-          len: [],
+          len: [8,255],
         },
       },
       id_rol: {
         type: Sequelize.INTEGER,
+        defaultValue: 1,
         allowNull: false,
         references: {
           model: "roles",
