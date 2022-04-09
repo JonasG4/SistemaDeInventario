@@ -5,7 +5,6 @@ class BaseService{
 
     async getAll(){
         const entities = await this._entityBusiness.getAll();
-        console.log("SERVICES: ", entities);
         return entities;
     }
 

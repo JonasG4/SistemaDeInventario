@@ -20,8 +20,8 @@ class BaseRepository {
     return this._db[this.entity].update(entity, { where: { id } });
   }
 
-  delete(id){
-    return this._db[this.entity].destroy({where: {id}});
+  delete(id) {
+    return this._db[this.entity].destroy({ where: { id } });
   }
 }
 
