@@ -9,12 +9,14 @@ const db = require("../dal/models");
 // Routes
 const Routes = require("../api/routes");
 const UsuarioRoutes = require("../api/routes/usuarioRoutes");
+const RolRoutes = require("../api/routes/rolRoutes");
+const AuthRoutes = require("./routes/authRoutes")
 const CategoriaRoutes = require('../api/routes/categoriaRoutes');
 const ProductoRoutes = require('../api/routes/productoRoutes');
 const PrecioRoutes = require('../api/routes/precioRoutes');
 
 // Controllers
-const { UsuarioController, CategoriaController, ProductoController, PrecioController } = require("../api/controllers");
+const { UsuarioController, CategoriaController, ProductoController, PrecioController,RolController, AuthController } = require("../api/controllers");
 
 // SERVICIOS
 const { UsuarioService,CategoriaService, ProductoService, PrecioService } = require("../services");
@@ -44,14 +46,18 @@ container
     UsuarioController: asClass(UsuarioController).singleton(),
     CategoriaController: asClass(CategoriaController).singleton(),
     ProductoController: asClass(ProductoController).singleton(),
-    PrecioController: asClass(PrecioController).singleton()
+    PrecioController: asClass(PrecioController).singleton(),
+    RolController: asClass(RolController).singleton(),
+    AuthController: asClass(AuthController).singleton()
   })
   .register({
     // Registrar rutas
     UsuarioRoutes: asFunction(UsuarioRoutes).singleton(),
     CategoriaRoutes: asFunction(CategoriaRoutes).singleton(),
     ProductoRoutes: asFunction(ProductoRoutes).singleton(),
-    PrecioRoutes: asFunction(PrecioRoutes).singleton()
+    PrecioRoutes: asFunction(PrecioRoutes).singleton(),
+    RolRoutes: asFunction(RolRoutes).singleton(),
+    AuthRoutes: asFunction(AuthRoutes).singleton()
   })
   .register({
     // Registrar repositorios

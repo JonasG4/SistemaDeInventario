@@ -9,15 +9,18 @@ module.exports = {
   database: process.env.DB_NAME ||  "DB_SYSMP",
   dialect: "postgres",
 
-  //CONFIG SEQUELIZE
+  //CONFIG JWT
+  secret: process.env.AUTH_SECRET,
+  expires: process.env.AUTH_EXPIRES,
+  rounds: process.env.AUTH_ROUNDS,
+  
+  // //SEEDERS
+  // seederStorage: "sequelize",
+  // seederStorageTable: "seeds",
 
-  //SEEDERS
-  seederStorage: "sequelize",
-  seederStorageTable: "seeds",
-
-  //MIGRATIONS
-  migrationStorege: "sequelize",
-  migrationStoregeTableName: "migrations",
+  // //MIGRATIONS
+  // migrationStorege: "sequelize",
+  // migrationStoregeTableName: "migrations",
 
   define: {
     timestamps: false,

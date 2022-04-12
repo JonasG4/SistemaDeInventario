@@ -1,16 +1,16 @@
 const mapper = require("automapper-js");
 const { UsuarioDto } = require("../dtos");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 class UsuarioController {
-  constructor({ UsuarioService }) {
+  constructor({ UsuarioService, config }) {
     this._usuarioService = UsuarioService;
+    this._config = config;
   }
 
   async getUsuarios(req, res) {
     let usuarios = await this._usuarioService.getAll();
-    console.log("usuario: ", usuarios);
-    usuarios = usuarios.map((usuario) => mapper(UsuarioDto, usuario));
-    console.log("usuario mapped: ", usuarios);
     return res.send({
       error: false,
       message: usuarios,
@@ -19,11 +19,13 @@ class UsuarioController {
 
   async getUsuario(req, res) {
     let { id } = req.params;
-    let usuario = await this._usuarioService.get(id);
+    let usuario = await this._usuarioService.getUsuarioById(id);
     if (!usuario) {
-      return res.status(404).send();
+      return res.status(404).send({
+        error: true,
+        message: `Usuario con id: ${id} no existe.`,
+      });
     }
-
     usuario = mapper(UsuarioDto, usuario);
     return res.send({
       error: false,
@@ -31,35 +33,55 @@ class UsuarioController {
     });
   }
 
-  async crearUsuario(req, res){
-    // console.log("aaaaaaaaa",req);
-    const { body }  = req;
+  async createUsuario(req, res) {
+    const { body } = req;
 
-    const crearUsuario = await this._usuarioService.create(body);
-    return res.status(201).send({
-      error: false,
-      message: "Usuario creado con exito!"
+    body.password = bcrypt.hashSync(body.password,  10);
+
+    await this._usuarioService.create(body).then((usuario) => {
+
+      let token = jwt.sign({user: usuario},  this._config.secret, {
+        expiresIn: this._config.expires
+      })
+
+      return res.status(201).send({
+        error: false,
+        message: `Se ha creado el usuario: ${
+          usuario.nombre + " " + usuario.apellido
+        }!`,
+        token: token
+      });
+    }).catch(err => {
+      res.status(500).send(err);
     })
   }
 
-  async modificarUsuario(req, res){
+  async updateUsuario(req, res) {
     const { body } = req;
     const { id } = req.params;
-    await this._usuarioService.update(id, body);
-    return res.status(204).send({
+    let response = await this._usuarioService.updateUsuario(id, body);
+
+    //Not found
+    if (!response) {
+      return res.status(404).send({
+        message: "Usuario no encontrado",
+      });
+    }
+
+    return res.status(208).send({
       error: false,
-      message: "Usuario actualizado el usuario con exito!"
-    })
+      message: "Usuario actualizado el usuario con exito!",
+    });
   }
 
-  async borrarUsuario(req, res){
-    const {id} = req.params;
+  async deleteUsuario(req, res) {
+    const { id } = req.params;
 
-    await this._usuarioService.delete(id);
+    await this._usuarioService.deleteUsuario(id);
     return res.status(206).send({
       error: false,
-      message: "Se ha eliminado el usuario con exito!"
-    })
+      message: "Se ha eliminado el usuario con exito!",
+    });
   }
 }
 

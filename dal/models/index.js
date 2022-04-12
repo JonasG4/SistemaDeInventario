@@ -4,12 +4,22 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
 const config = require("../../config/environments");
 const db = {};
 
 let sequelize = new Sequelize(config.database, config.username, config.password, config);
-  console.log(config.database);
+
+async function verifyConnection(){
+  try {
+    await sequelize.authenticate();
+    console.log('Se ha conectado correctamente a la base de datos: ', sequelize.options.database);
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+
+verifyConnection();
+
 fs
   .readdirSync(__dirname)
   .filter(file => {
