@@ -42,7 +42,7 @@ class ProductoController {
     const { body } = req;
     const { id } = req.params;
     console.log(body)
-    await this._productoService.update(id, body);
+    await this._productoService.updateProducto(id, body);
     return res.status(204).send({
       error: false,
       message: "Producto actualizado con exito!"

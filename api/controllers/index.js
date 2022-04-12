@@ -1,5 +1,6 @@
 module.exports = {
     UsuarioController: require('./usuarioController'),
     CategoriaController: require('./categoriaController'),
-    ProductoController: require('./productoController')
+    ProductoController: require('./productoController'),
+    PrecioController: require('./precioController')
 };

@@ -1,21 +1,23 @@
 const BaseRepository = require('./baseRepository');
 
-class ProductoRepository extends BaseRepository {
+class PrecioRepository extends BaseRepository {
   constructor( { db } ) {
-    super(db, "Productos")
+    super(db, "Precios");
   }
 
-  updateProducto(id,entity) {
+  updatePrecio(id,entity) {
     const response = this._db[this.entity].update(entity, {
       where: {
         id: id
       }
     })
+
     if(!response) {
       return null;
     }
+
     return response;
   }
 }
 
-module.exports = ProductoRepository;
+module.exports = PrecioRepository;
