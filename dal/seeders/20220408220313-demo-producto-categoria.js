@@ -6,11 +6,22 @@ module.exports = {
       nom_producto: "Ropero",
       tam_producto: "mediano",
       des_producto: "Ropero de madera de 2 puertas",
-      cod_categoria: 5
-    }])
+      cod_categoria: 5,
+      created_at: new Date().toUTCString(),
+      updated_at: new Date().toUTCString(),
+    },
+    {
+      nom_producto: "Ropero",
+      tam_producto: "grande",
+      des_producto: "Ropero de madera de 5 puertas",
+      cod_categoria: 5,
+      created_at: new Date().toUTCString(),
+      updated_at: new Date().toUTCString(),
+    }
+  ])
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('usuarios', null, {});
+    await queryInterface.bulkDelete('productos', null, {});
   }
 };

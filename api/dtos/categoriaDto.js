@@ -1,8 +1,11 @@
 class CategoriaDto {
-  id;
-  nombre;
-  descripcion;
-  created_at;
+  constructor() {
+    this.id = "";
+    this.nombre="";
+    this.descripcion="";
+    this.created_at="";
+    this.updated_at="";
+  }
 }
 
 module.exports = CategoriaDto;

@@ -1,11 +1,13 @@
 class Productos {
-  id;
-  nom_producto;
-  tam_producto;
-  des_producto;
-  cod_categoria;
-  created_at;
-  updated_at;
+  constructor() {
+    this.id="";
+    this.nom_producto="";
+    this.tam_producto="";
+    this.des_producto="";
+    this.cod_categoria="";
+    this.created_at="";
+    this.updated_at="";
+  }
 }
 
 module.exports = Productos;
