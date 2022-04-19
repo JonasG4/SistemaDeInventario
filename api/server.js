@@ -1,11 +1,13 @@
 const { rejects } = require('assert');
 const express = require('express');
 const { resolve } = require('path');
+const cors = require('cors');
 const logger = require('morgan');
 class Server{
     constructor({config, router}){
         this._config = config;
         this._express = express();
+        this._express.use(cors());
         this._express.use(router);
         this._express.use(logger('dev'))
     }
