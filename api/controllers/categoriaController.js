@@ -17,7 +17,8 @@ class CategoriaController {
 
   async getCategoria(req, res) {
     let { id } = req.params;
-    let categoria = await this._categoriaService.get(id);
+    console.log(id);
+    let categoria = await this._categoriaService.getCategoriaById(id);
     if (!categoria) {
       return res.status(404).send();
     }
@@ -42,7 +43,7 @@ class CategoriaController {
   async modificarCategoria(req, res){
     const { body } = req;
     const { id } = req.params;
-    await this._categoriaService.update(id, body);
+    await this._categoriaService.updateCategoria(id, body);
     return res.status(204).send({
       error: false,
       message: "Categoria actualizada con exito!"
@@ -52,7 +53,7 @@ class CategoriaController {
   async borrarCategoria(req, res){
     const {id} = req.params;
 
-    await this._categoriaService.delete(id);
+    await this._categoriaService.deleteCategoria(id);
     return res.status(206).send({
       error: false,
       message: "Se ha eliminado la categoria con exito!"

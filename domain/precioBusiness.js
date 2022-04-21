@@ -7,6 +7,11 @@ class PrecioBusiness extends BaseBusiness {
     super(PrecioRepository, Precios);
   }
 
+  async getPrecios() {
+    const precios = await this._entityRepository.getPrecios();
+    return precios;
+  }
+
   async updatePrecio(id,entity) {
     entity.updated_at = new Date().toLocaleString();
     entity.id = id;

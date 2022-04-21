@@ -1,9 +1,11 @@
 class PrecioDto {
-  id;
-  product_id;
-  precio;
-  created_at;
-  updated_at;
+  constructor() {
+    this.id="";
+    this.product_id="";
+    this.precio="";
+    this.created_at="";
+    this.updated_at="";
+  }
 }
 
 module.exports = PrecioDto;

@@ -7,8 +7,7 @@ class ProductoController {
   }
 
   async getProductos(req,res) {
-    let productos = await this._productoService.getAll();
-    productos = productos.map((producto) => mapper(ProductoDto, producto));
+    let productos = await this._productoService.getProductos();
     return res.send({
       error: false,
       message: productos

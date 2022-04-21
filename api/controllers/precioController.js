@@ -7,9 +7,7 @@ class PrecioController {
   }
 
   async getPrecios(req,res) {
-    let precios = await this._precioService.getAll();
-    precios = precios.map((precio) => mapper(PrecioDto, precio));
-
+    let precios = await this._precioService.getPrecios();
     return res.send({
       error: false,
       message: precios 
