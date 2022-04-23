@@ -30,7 +30,6 @@ class CategoriaController {
   }
 
   async crearCategoria(req, res){
-    // console.log("aaaaaaaaa",req);
     const { body }  = req;
     const crearCategoria = await this._categoriaService.create(body);
     return res.status(201).send({

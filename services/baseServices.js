@@ -19,7 +19,6 @@ class BaseService{
     }
 
     async update(id, entity){
-        console.log("aaaaaaaaa Service", entity);
         const updatedEntity = await this._entityBusiness.updateProducto(id, entity);
         return updatedEntity;
     }

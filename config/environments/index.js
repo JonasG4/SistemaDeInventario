@@ -13,4 +13,4 @@ if(NODE_ENV === "production"){
     currentEnv = TEST;
 }
 
-module.exports = currentEnv;
+module.exports = currentEnv
