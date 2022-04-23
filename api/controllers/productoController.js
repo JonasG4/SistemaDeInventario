@@ -41,7 +41,6 @@ class ProductoController {
   async modificarProducto(req, res){
     const { body } = req;
     const { id } = req.params;
-    console.log(body)
     await this._productoService.update(id, body);
     return res.status(204).send({
       error: false,

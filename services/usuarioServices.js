@@ -5,9 +5,20 @@ class UsuarioService extends BaseService {
     super(UsuarioBusiness);
   }
 
+  async checkEmailExist(email){
+    const result = await this._entityBusiness.getUsuarioByEmail(email);
+    return result;
+  }
+
   async getUsuarioByEmail(email){
     const entity = await this._entityBusiness.getUsuarioByEmail(email);
     return entity;
+  }
+
+  async createUsuario(entity){
+    if(entity.passwod.lenght < 8) throw new Error("La contraseña debe tener al menos 8 caracteres");
+    const createdEntity = await this._entityBusiness.create(entity);0
+    return createdEntity;
   }
 
   async getUsuarioById(id) {

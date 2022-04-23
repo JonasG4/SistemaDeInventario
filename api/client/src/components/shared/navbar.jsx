@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default function navbar() {
+export default function Navbar() {
   return (
-    <div>navbar</div>
-  )
+    <div className='w-full'>
+        <nav className='bg-sky-500 h-[70px]'>
+            
+        </nav>
+    </div>
+    )
 }

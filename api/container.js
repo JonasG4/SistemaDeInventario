@@ -1,33 +1,56 @@
 const { asClass, createContainer, asFunction, asValue } = require("awilix");
 
-// Startup
+// STARTUP
 const StartUp = require("./startup");
 const Server = require("./server");
 const config = require("../config/environments");
 const db = require("../dal/models");
 
-// Routes
+// ROUTES
 const Routes = require("../api/routes");
 const UsuarioRoutes = require("../api/routes/usuarioRoutes");
 const RolRoutes = require("../api/routes/rolRoutes");
-const AuthRoutes = require("./routes/authRoutes")
-const CategoriaRoutes = require('../api/routes/categoriaRoutes');
-const ProductoRoutes = require('../api/routes/productoRoutes');
+const AuthRoutes = require("./routes/authRoutes");
+const CategoriaRoutes = require("../api/routes/categoriaRoutes");
+const ProductoRoutes = require("../api/routes/productoRoutes");
 
-// Controllers
-const { UsuarioController, CategoriaController, ProductoController, RolController, AuthController } = require("../api/controllers");
+// CONTROLLERS
+const {
+  UsuarioController,
+  CategoriaController,
+  ProductoController,
+  RolController,
+  AuthController,
+} = require("../api/controllers");
+
+////MIDDLEWARES
+const { AuthMiddleware } = require("./middlewares");
+//Validaciones
+const { UsuarioValidation } = require("./middlewares/validations");
 
 // SERVICIOS
-const { UsuarioService,CategoriaService, ProductoService } = require("../services");
+const {
+  UsuarioService,
+  CategoriaService,
+  ProductoService,
+} = require("../services");
 
 // REPOSITORIOS
-const { UsuarioRepository,CategoriaRepository, ProductoRepository } = require("../dal/repositories");
+const {
+  UsuarioRepository,
+  CategoriaRepository,
+  ProductoRepository,
+} = require("../dal/repositories");
 
 // BUSINESS
-const { UsuarioBusiness,CategoriasBusiness, ProductoBusiness } = require("../domain/");
+const {
+  UsuarioBusiness,
+  CategoriasBusiness,
+  ProductoBusiness,
+} = require("../domain/");
 
 const container = createContainer();
-//registra todo los servicios a utilizar 
+//registra todo los servicios a utilizar
 container
   .register({
     app: asClass(StartUp).singleton(),
@@ -46,7 +69,12 @@ container
     CategoriaController: asClass(CategoriaController).singleton(),
     ProductoController: asClass(ProductoController).singleton(),
     RolController: asClass(RolController).singleton(),
-    AuthController: asClass(AuthController).singleton()
+    AuthController: asClass(AuthController).singleton(),
+  })
+  .register({
+    //Registrar middlwares
+    AuthMiddleware: asClass(AuthMiddleware).singleton(),
+    UsuarioValidation: asClass(UsuarioValidation).singleton()
   })
   .register({
     // Registrar rutas
@@ -54,25 +82,25 @@ container
     CategoriaRoutes: asFunction(CategoriaRoutes).singleton(),
     ProductoRoutes: asFunction(ProductoRoutes).singleton(),
     RolRoutes: asFunction(RolRoutes).singleton(),
-    AuthRoutes: asFunction(AuthRoutes).singleton()
+    AuthRoutes: asFunction(AuthRoutes).singleton(),
   })
   .register({
     // Registrar repositorios
     UsuarioRepository: asClass(UsuarioRepository).singleton(),
     CategoriaRepository: asClass(CategoriaRepository).singleton(),
-    ProductoRepository: asClass(ProductoRepository).singleton()
+    ProductoRepository: asClass(ProductoRepository).singleton(),
   })
   .register({
     // Registrar business
     UsuarioBusiness: asClass(UsuarioBusiness).singleton(),
     CategoriasBusiness: asClass(CategoriasBusiness).singleton(),
-    ProductoBusiness: asClass(ProductoBusiness).singleton()
+    ProductoBusiness: asClass(ProductoBusiness).singleton(),
   })
   .register({
     // Registrar servicios
     UsuarioService: asClass(UsuarioService).singleton(),
     CategoriaService: asClass(CategoriaService).singleton(),
-    ProductoService: asClass(ProductoService).singleton()
+    ProductoService: asClass(ProductoService).singleton(),
   });
 
 module.exports = container;

@@ -21,34 +21,19 @@ module.exports = (sequelize, DataTypes) => {
       nombre: {
         type: DataTypes.STRING(25),
         allowNull: false,
-        validate: {
-          isAlpha: {
-            args: true,
-            msg: "El nombre no puede contener números."
-          }
-        }
       },
-      apellido: DataTypes.STRING(25),
+      apellido: {
+        type: DataTypes.STRING(25),
+        allowNull: false
+      },
       email: {
         type: DataTypes.STRING(100),
         unique: true,
         allowNull: false,
-        validate: {
-          isEmail: {
-            args: true,
-            msg: "che pibe escribi bien el correo, va?"
-          },
-        },
       },
       password: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        validate: {
-          len: {
-            args: [8,255],
-            msg: "La contraseña debe tener un minimo de 8 carácteres"
-          }
-        },
       },
       id_rol: {
         type: DataTypes.INTEGER,
@@ -57,10 +42,6 @@ module.exports = (sequelize, DataTypes) => {
       estado: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
-        validate: {
-          min: 0,
-          max: 1,
-        },
       },
       created_at: {
         type: DataTypes.DATE,

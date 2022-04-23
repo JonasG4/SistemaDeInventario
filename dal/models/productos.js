@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Productos.belongsTo(models.Categorias, {
         foreignKey: 'cod_categoria'
       })
-      Productos.hasMany(model.Precios, {
+      Productos.hasMany(models.Precios, {
         foreignKey: 'id'
       })
     }

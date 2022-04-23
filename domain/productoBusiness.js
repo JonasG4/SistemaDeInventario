@@ -8,7 +8,6 @@ class ProductoBusiness extends BaseBusiness {
   }
   async updateProducto(id,entity) {
     entity.updated_at = new Date().toLocaleString();
-    console.log(entity.updatedAt)
     entity.id = id;
     entity = mapper(this.entityToMap, entity);
     const updatedEntity = await this._entityRepository.update(id, entity);

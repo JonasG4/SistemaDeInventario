@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function sidebar() {
+export default function Sidebar() {
   return (
-    <div>sidebar</div>
+    <aside className='bg-slate-100 h-screen w-[100px]'>
+        
+    </aside>
   )
 }
