@@ -11,15 +11,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Precios.belongsTo(models.Productos, {
-        foreignKey: 'product_id'
+        foreignKey: 'id_producto'
       })
     }
   }
   Precios.init({
-    product_id: DataTypes.INTEGER,
-    precio: DataTypes.FLOAT,
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE
+    id_precio: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    id_producto: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    precio: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Precios',

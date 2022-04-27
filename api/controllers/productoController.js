@@ -16,12 +16,10 @@ class ProductoController {
 
   async getProducto(req,res) {
     let { id } = req.params;
-    let producto = await this._productoService.get(id)
+    let producto = await this._productoService.getProducto(id)
     if(!producto) {
       return res.status(404).send();
     }
-
-    producto = mapper(ProductoDto, producto);
     return res.send({
       error: false,
       producto: producto
@@ -51,7 +49,7 @@ class ProductoController {
   async borrarProducto(req, res){
     const {id} = req.params;
 
-    await this._productoService.delete(id);
+    await this._productoService.deleteProducto(id);
     return res.status(206).send({
       error: false,
       message: "Se ha eliminado el producto con exito!"

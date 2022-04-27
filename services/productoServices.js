@@ -10,9 +10,19 @@ class ProductoService extends BaseService {
     return entity;
   }
 
+  async getProducto(id) {
+    const entity = await this._entityBusiness.getProducto(id);
+    return entity;
+  }
+
   async updateProducto(id,entity) {
     const updateEntity = await this._entityBusiness.updateProducto(id,entity);
     return updateEntity;
+  }
+
+  async deleteProducto(id) {
+    const deleteProducto = await this._entityBusiness.deleteProducto(id);
+    return deleteProducto;
   }
 }
 

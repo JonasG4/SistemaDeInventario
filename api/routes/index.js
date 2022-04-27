@@ -15,7 +15,6 @@ module.exports = function ({ UsuarioRoutes, CategoriaRoutes, ProductoRoutes, Pre
   apiRoute.use('/categorias', CategoriaRoutes);
   apiRoute.use('/productos',ProductoRoutes);
   apiRoute.use('/precios', PrecioRoutes);
-  apiRoute.use('/productos',ProductoRoutes)
   apiRoute.use("/usuarios", UsuarioRoutes);
   apiRoute.use("/roles", RolRoutes);
   apiRoute.use("/auth", AuthRoutes)

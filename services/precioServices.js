@@ -10,6 +10,11 @@ class PrecioService extends BaseService {
     return entity;
   }
 
+  async getPrecioById(id) {
+    const entity = await this._entityBusiness.getPrecioById(id);
+    return entity;
+  }
+
   async updatePrecio(id,entity) {
     const updateEntity = await this._entityBusiness.updatePrecio(id,entity);
     return updateEntity;

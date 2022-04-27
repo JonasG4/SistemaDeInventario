@@ -7,7 +7,7 @@ module.exports = function({ PrecioController }) {
   router.get('/:id', PrecioController.getPrecio.bind(PrecioController));
   router.post('/', PrecioController.crearPrecio.bind(PrecioController));
   router.put('/:id', PrecioController.modificarPrecio.bind(PrecioController));
-  router.delete('/:id', PrecioController.borrarPrecio.bind(PrecioController));
+  // router.delete('/:id', PrecioController.borrarPrecio.bind(PrecioController));
 
   return router;
 }

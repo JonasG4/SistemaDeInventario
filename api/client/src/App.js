@@ -14,6 +14,7 @@ function App() {
           <Route path="/auth/login" element={<Login />}></Route>
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/categorias/new" element={<CategoriasForm />} />
+          <Route path="/categorias/:id/edit" element={<CategoriasForm />} />
           <Route path="/" element={<ListaUsuarios />}></Route>
         </Routes>
       </BrowserRouter>

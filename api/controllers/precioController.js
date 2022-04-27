@@ -16,12 +16,10 @@ class PrecioController {
 
   async getPrecio(req,res) {
     let {  id } = req.params;
-    let precio = await this._precioService.get(id);
+    let precio = await this._precioService.getPrecioById(id);
     if(!precio) {
       return res.status(400).send();
     }
-
-    precio = mapper(PrecioDto, precio);
     return res.send({
       error: false,
       precio: precio

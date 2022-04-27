@@ -1,10 +1,7 @@
 class Precios {
   constructor() {
-    this.id="";
-    this.product_id="";
+    this.id_producto="";
     this.precio="";
-    this.created_at="";
-    this.updated_at="";
   }
 }
 

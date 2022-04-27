@@ -35,7 +35,7 @@ export default function Categorias() {
           <tbody>
             {
               categorias.map(categoria => (
-                <CategoriaItem key={categoria.id_categoria} id={categoria.id} nombre={categoria.nombre} descripcion={categoria.descripcion} />
+                <CategoriaItem key={categoria.id_categoria} id={categoria.id_categoria} nombre={categoria.nombre} descripcion={categoria.descripcion} />
               ))
             }
           </tbody>

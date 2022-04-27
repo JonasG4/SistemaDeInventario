@@ -12,9 +12,15 @@ class PrecioBusiness extends BaseBusiness {
     return precios;
   }
 
+  async getPrecioById(id) {
+    const entity = await this._entityRepository.getPrecioById(id);
+    if(!entity) return null;
+    return entity.toJSON();
+  }
+
   async updatePrecio(id,entity) {
-    entity.updated_at = new Date().toLocaleString();
-    entity.id = id;
+    entity.updated_at =  new Date().toUTCString();
+    entity.id_precio = id;
     entity = mapper(this.entityToMap, entity);
     const updatedEntity = await this._entityRepository.updatePrecio(id,entity);
     return mapper(this.entityToMap, updatedEntity);

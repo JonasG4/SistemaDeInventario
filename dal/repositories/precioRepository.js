@@ -13,10 +13,22 @@ class PrecioRepository extends BaseRepository {
     return response;
   }
 
+  getPrecioById(id) {
+    const response = this._db[this.entity].findOne({
+      include: [{model: models.Productos, required: true}],
+      where: {
+        id_precio: id
+      }
+    });
+    if(!response) return null;
+    
+    return response;
+  }
+
   updatePrecio(id,entity) {
     const response = this._db[this.entity].update(entity, {
       where: {
-        id: id
+        id_precio: id
       }
     })
 
