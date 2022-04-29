@@ -18,7 +18,6 @@ class CategoryValidation {
         .withMessage("Debes escribir una descripcion"),
         handleValidationErrors,
     ];
-
     return validation;
   }
 }
