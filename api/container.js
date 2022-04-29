@@ -18,6 +18,12 @@ const PrecioRoutes = require('../api/routes/precioRoutes');
 // Controllers
 const { UsuarioController, CategoriaController, ProductoController, PrecioController,RolController, AuthController } = require("../api/controllers");
 
+//MIDDLEWARES
+// const { AuthMiddleware } = require("./middlewares");
+
+//Validaciones
+const { UsuarioValidation,CategoryValidation,ProductValidation,PriceValidation } = require("./middlewares/validations");
+
 // SERVICIOS
 const { UsuarioService,CategoriaService, ProductoService, PrecioService } = require("../services");
 
@@ -49,6 +55,13 @@ container
     PrecioController: asClass(PrecioController).singleton(),
     RolController: asClass(RolController).singleton(),
     AuthController: asClass(AuthController).singleton()
+  })
+  .register({
+    //Registrar middlewares
+    UsuarioValidation: asClass(UsuarioValidation).singleton(),
+    CategoryValidation: asClass(CategoryValidation).singleton(),
+    ProductValidation: asClass(ProductValidation).singleton(),
+    PriceValidation: asClass(PriceValidation).singleton()
   })
   .register({
     // Registrar rutas
