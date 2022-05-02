@@ -10,6 +10,11 @@ class CategoriaService extends BaseService {
     return entity;
   }
 
+  async getCategoriaByName(name) {
+    const entity = await this._entityBusiness.getCategoriaByName(name);
+    return entity;
+  }
+
   async updateCategoria(id,entity) {
     const updateEntity = await this._entityBusiness.updateCategoria(id, entity);
     return updateEntity;

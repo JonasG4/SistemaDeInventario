@@ -13,6 +13,12 @@ class CategoriasBusiness extends BaseBusiness {
     return mapper(this.entityToMap, entity.toJSON());
   }
 
+  async getCategoriaByName(name) {
+    const entity = await this._entityRepository.getCategoriaByName(name);
+    if(!entity) return null;
+    return mapper(this.entityToMap, entity.toJSON());
+  }
+
   async updateCategoria(id,entity) {
     entity.id_categoria = id;
     entity = mapper(this.entityToMap, entity);

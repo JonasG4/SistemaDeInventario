@@ -3,5 +3,6 @@ module.exports = {
     CategoriaDto: require('./categoriaDto'),
     RolDto: require('./rolDto'),
     ProductoDto: require('./productoDto'),
-    PrecioDto: require('./precioDto')
+    PrecioDto: require('./precioDto'),
+    ProveedorDto: require('./proveedorDto')
 }

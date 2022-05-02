@@ -18,6 +18,16 @@ class CategoriaRepository extends BaseRepository {
     return response;
   }
 
+  getCategoriaByName(name) {
+    const response = this._db[this.entity].findOne({
+      where: {
+        nombre: name
+      }
+    });
+    if(!response) return null;
+    return response;
+  }
+
   updateCategoria(id, entity) {
     const response = this._db[this.entity].update(entity, {
       where: {

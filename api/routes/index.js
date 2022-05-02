@@ -4,7 +4,7 @@ const cors = require("cors");
 const compression = require("compression");
 const { ValidationError } = require("sequelize");
 
-module.exports = function ({ UsuarioRoutes, CategoriaRoutes, ProductoRoutes, PrecioRoutes, RolRoutes, AuthRoutes }) {
+module.exports = function ({ UsuarioRoutes, CategoriaRoutes, ProductoRoutes, PrecioRoutes, RolRoutes, AuthRoutes,ProveedorRoutes }) {
   const router = Router();
   const apiRoute = Router();
 
@@ -18,7 +18,8 @@ module.exports = function ({ UsuarioRoutes, CategoriaRoutes, ProductoRoutes, Pre
   apiRoute.use('/precios', PrecioRoutes);
   apiRoute.use("/usuarios", UsuarioRoutes);
   apiRoute.use("/roles", RolRoutes);
-  apiRoute.use("/auth", AuthRoutes)
+  apiRoute.use("/auth", AuthRoutes);
+  apiRoute.use('/proveedores', ProveedorRoutes);
   router.use("/api", apiRoute);
 
   //Manejador de errores

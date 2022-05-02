@@ -2,8 +2,8 @@ const { handleValidationErrors } = require('./validationsBase');
 const { check } = require('express-validator');
 
 class CategoryValidation {
-  constructor() {
-
+  constructor({ CategoriaService }) {
+    this._categoriaService =  CategoriaService;
   }
 
   validate() {
@@ -11,7 +11,16 @@ class CategoryValidation {
       check("nombre")
         .exists({checkFalsy: false})
         .notEmpty()
-        .withMessage("Es necesario un nombre"),
+        .withMessage("Es necesario un nombre")
+        .custom(async (name) => {
+          await this._categoriaService.getCategoriaByName(name)
+            .then((result) => {
+              if(result) {
+                return Promise.reject("El nombre de la categoría ya existe");
+              }
+            }) 
+        })
+      .withMessage("Nombre de categoría ya existe"),
       check("descripcion")
         .exists({checkFalsy: false})
         .notEmpty()

@@ -4,5 +4,6 @@ module.exports = {
     ProductoController: require('./productoController'),
     PrecioController: require('./precioController'),
     RolController: require('./rolController'),
-    AuthController: require('./authController.js')
+    AuthController: require('./authController.js'),
+    ProveedorController: require('./proveedorController')
 };
