@@ -1,16 +1,19 @@
-const express = require("express");
-const logger = require("morgan");
+const { rejects } = require('assert');
+const express = require('express');
+const { resolve } = require('path');
+const cors = require('cors');
+const logger = require('morgan');
 const cookieParse = require("cookie-parser");
 const csurf = require('csurf')
 const helmet = require('helmet')
-
-class Server {
-  constructor({ config, router }) {
-    this._config = config;
-    this._express = express();
-    this._express.use(router);
-  }
-
+class Server{
+    constructor({config, router}){
+        this._config = config;
+        this._express = express();
+        this._express.use(cors());
+        this._express.use(router);
+        this._express.use(logger('dev'))
+    }
   start() {
     return new Promise((resolve, reject) => {
       const isProduction = this._config === 'PRODUCTION'

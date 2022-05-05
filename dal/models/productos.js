@@ -14,20 +14,45 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'cod_categoria'
       })
       Productos.hasMany(models.Precios, {
-        foreignKey: 'id'
+        foreignKey: 'id_precio'
       })
     }
   }
   Productos.init({
-    nom_producto: DataTypes.STRING,
-    tam_producto: DataTypes.STRING,
-    des_producto: DataTypes.TEXT,
-    cod_categoria: DataTypes.INTEGER,
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE
+    id_producto: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    nom_producto: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    tam_producto: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    des_producto: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    cod_categoria: {
+      type:  DataTypes.INTEGER,
+      allowNull: false
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false
+    },
+    updated_at:{
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false
+    }
   }, {
     sequelize,
-    timestamps: false,
     modelName: 'Productos',
   });
   return Productos;

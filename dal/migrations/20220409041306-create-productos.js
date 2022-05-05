@@ -25,7 +25,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: "categorias",
-          key: "id"
+          key: "id_categoria"
         }
       },
       created_at: {
