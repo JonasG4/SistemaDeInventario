@@ -33,44 +33,11 @@ const { UsuarioRepository,CategoriaRepository, ProductoRepository, PrecioReposit
 
 // BUSINESS
 const { UsuarioBusiness,CategoriasBusiness, ProductoBusiness, PrecioBusiness,ProveedorBusiness } = require("../domain/");
-const AuthRoutes = require("./routes/authRoutes");
-const CategoriaRoutes = require("../api/routes/categoriaRoutes");
-const ProductoRoutes = require("../api/routes/productoRoutes");
 
-// CONTROLLERS
-const {
-  UsuarioController,
-  CategoriaController,
-  ProductoController,
-  RolController,
-  AuthController,
-} = require("../api/controllers");
 
 ////MIDDLEWARES
 const { AuthMiddleware } = require("./middlewares");
-//Validaciones
-const { UsuarioValidation } = require("./middlewares/validations");
 
-// SERVICIOS
-const {
-  UsuarioService,
-  CategoriaService,
-  ProductoService,
-} = require("../services");
-
-// REPOSITORIOS
-const {
-  UsuarioRepository,
-  CategoriaRepository,
-  ProductoRepository,
-} = require("../dal/repositories");
-
-// BUSINESS
-const {
-  UsuarioBusiness,
-  CategoriasBusiness,
-  ProductoBusiness,
-} = require("../domain/");
 
 const container = createContainer();
 //registra todo los servicios a utilizar
