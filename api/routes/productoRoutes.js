@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router } = require("express");
 
 module.exports = function({ ProductoController,ProductValidation }) {
   const router = Router();
@@ -11,4 +11,4 @@ module.exports = function({ ProductoController,ProductValidation }) {
   router.delete('/:id', ProductoController.borrarProducto.bind(ProductoController));
 
   return router;
-}
+};

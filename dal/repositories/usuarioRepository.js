@@ -11,7 +11,8 @@ class UsuarioRepository extends BaseRepository {
     const response = this._db[this.entity].findOne({
       where: {
         email: email
-      }
+      },
+      include: [this._db.Roles]
     });
     if (!response) return null;
     return response;

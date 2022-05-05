@@ -1,12 +1,12 @@
 const { asClass, createContainer, asFunction, asValue } = require("awilix");
 
-// Startup
+// STARTUP
 const StartUp = require("./startup");
 const Server = require("./server");
 const config = require("../config/environments");
 const db = require("../dal/models");
 
-// Routes
+// ROUTES
 const Routes = require("../api/routes");
 const UsuarioRoutes = require("../api/routes/usuarioRoutes");
 const RolRoutes = require("../api/routes/rolRoutes");
@@ -33,9 +33,47 @@ const { UsuarioRepository,CategoriaRepository, ProductoRepository, PrecioReposit
 
 // BUSINESS
 const { UsuarioBusiness,CategoriasBusiness, ProductoBusiness, PrecioBusiness,ProveedorBusiness } = require("../domain/");
+const AuthRoutes = require("./routes/authRoutes");
+const CategoriaRoutes = require("../api/routes/categoriaRoutes");
+const ProductoRoutes = require("../api/routes/productoRoutes");
+
+// CONTROLLERS
+const {
+  UsuarioController,
+  CategoriaController,
+  ProductoController,
+  RolController,
+  AuthController,
+} = require("../api/controllers");
+
+////MIDDLEWARES
+const { AuthMiddleware } = require("./middlewares");
+//Validaciones
+const { UsuarioValidation } = require("./middlewares/validations");
+
+// SERVICIOS
+const {
+  UsuarioService,
+  CategoriaService,
+  ProductoService,
+} = require("../services");
+
+// REPOSITORIOS
+const {
+  UsuarioRepository,
+  CategoriaRepository,
+  ProductoRepository,
+} = require("../dal/repositories");
+
+// BUSINESS
+const {
+  UsuarioBusiness,
+  CategoriasBusiness,
+  ProductoBusiness,
+} = require("../domain/");
 
 const container = createContainer();
-//registra todo los servicios a utilizar 
+//registra todo los servicios a utilizar
 container
   .register({
     app: asClass(StartUp).singleton(),
@@ -65,6 +103,11 @@ container
     ProductValidation: asClass(ProductValidation).singleton(),
     PriceValidation: asClass(PriceValidation).singleton(),
     ProveedorValidation: asClass(ProveedorValidation).singleton()
+  })
+  .register({
+    //Registrar middlwares
+    AuthMiddleware: asClass(AuthMiddleware).singleton(),
+    UsuarioValidation: asClass(UsuarioValidation).singleton()
   })
   .register({
     // Registrar rutas

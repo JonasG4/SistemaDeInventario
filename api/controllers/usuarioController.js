@@ -36,24 +36,39 @@ class UsuarioController {
   async createUsuario(req, res) {
     const { body } = req;
 
-    body.password = bcrypt.hashSync(body.password,  10);
-
-    await this._usuarioService.create(body).then((usuario) => {
-
-      let token = jwt.sign({user: usuario},  this._config.secret, {
-        expiresIn: this._config.expires
-      })
-
-      return res.status(201).send({
-        error: false,
-        message: `Se ha creado el usuario: ${
-          usuario.nombre + " " + usuario.apellido
-        }!`,
-        token: token
+    if (body.password.length < 8) {
+      return res.json({
+        error: true,
+        msg: "La contraseña debe tener al menos 8 caracteres",
       });
-    }).catch(err => {
-      res.status(500).send(err);
-    })
+    }
+
+    body.password = bcrypt.hashSync(body.password, 10);
+
+    await this._usuarioService
+      .create(body)
+      .then((usuario) => {
+        let credenciales = {
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          email: usuario.email,
+          rol: usuario.roles.nombre
+        }
+        let token = jwt.sign({ credenciales }, this._config.secret, {
+          expiresIn: this._config.expires,
+        });
+
+        return res.status(201).send({
+          error: false,
+          message: `Se ha creado el usuario: ${
+            usuario.nombre + " " + usuario.apellido
+          }!`,
+          token: token,
+        });
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   }
 
   async updateUsuario(req, res) {

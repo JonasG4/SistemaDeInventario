@@ -10,6 +10,7 @@ class UsuarioBusiness extends BaseBusiness {
   async getUsuarioByEmail(email){
     const entity = await this._entityRepository.getUsuarioByEmail(email);
     if(!entity) return null;
+
     return entity.toJSON();
   }
 
