@@ -1,4 +1,7 @@
+const { rejects } = require("assert");
 const express = require("express");
+const { resolve } = require("path");
+const cors = require("cors");
 const logger = require("morgan");
 const cookieParse = require("cookie-parser");
 const csurf = require("csurf");
@@ -11,7 +14,6 @@ class Server {
     this._express.use(cookieParse());
     this._express.use(router);
   }
-
   start() {
     return new Promise((resolve, reject) => {
       const isProduction = this._config === "PRODUCTION";

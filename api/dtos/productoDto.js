@@ -1,11 +1,10 @@
 class ProductoDto {
-  id;
-  nom_producto;
-  tam_producto;
-  des_producto;
-  cod_categoria;
-  created_at;
-  updated_at;
+  constructor() {
+    this.nom_producto="";
+    this.tam_producto="";
+    this.des_producto="";
+    this.cod_categoria="";
+  }
 }
 
 module.exports = ProductoDto;

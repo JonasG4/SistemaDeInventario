@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Categorias.init({
+    id_categoria: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
     nombre: DataTypes.STRING,
     descripcion: DataTypes.TEXT
   }, {
@@ -22,6 +28,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Categorias;
 };
-
-//1 a muchos
-//
