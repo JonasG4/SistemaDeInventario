@@ -10,7 +10,7 @@ class UsuarioController {
   }
 
   async getUsuarios(req, res) {
-    let usuarios = await this._usuarioService.getAll();
+    let usuarios = await this._usuarioService.getAllUsuarios();
     return res.send({
       error: false,
       message: usuarios,
@@ -36,38 +36,20 @@ class UsuarioController {
   async createUsuario(req, res) {
     const { body } = req;
 
-    if (body.password.length < 8) {
-      return res.json({
-        error: true,
-        msg: "La contraseña debe tener al menos 8 caracteres",
-      });
-    }
-
     body.password = bcrypt.hashSync(body.password, 10);
 
     await this._usuarioService
-      .create(body)
+      .createUsuario(body)
       .then((usuario) => {
-        let credenciales = {
-          nombre: usuario.nombre,
-          apellido: usuario.apellido,
-          email: usuario.email,
-          rol: usuario.roles.nombre
-        }
-        let token = jwt.sign({ credenciales }, this._config.secret, {
-          expiresIn: this._config.expires,
-        });
-
         return res.status(201).send({
           error: false,
           message: `Se ha creado el usuario: ${
             usuario.nombre + " " + usuario.apellido
           }!`,
-          token: token,
         });
       })
       .catch((err) => {
-        res.status(500).send(err);
+        return res.status(500).send(err);
       });
   }
 

@@ -37,12 +37,19 @@ module.exports = function ({
 
   // Acceder a una ruta invalidad del servidor
   router.use((_req, _res, next) => {
-    const err  = new Error("El recurso no fue encontrado");
+    const err = new Error("El recurso no fue encontrado");
     err.title = "Recurso no encontrado";
-    err.errors = ["El recurso no fue encontrado"]
+    err.errors = ["El recurso no fue encontrado"];
     err.status = 404;
-    next(err);
-  })
+    return next(err);
+  });
+
+  //Agregar a XSRF-TOKEN cookie en desarollo
+  apiRoute.get("/csrf/restore", (req, res) => {
+    res.cookie("XSRF-TOKEN", req.csrfToken());
+    console.log("che si entra boludo");
+    return res.status(201).json({});
+  });
 
   //Manejador de errores
   router.use((err, _req, _res, next) => {
@@ -51,12 +58,12 @@ module.exports = function ({
       err.errors = err.errors.map((e) => e.message);
       err.title = "Error de Validación";
     }
-    next(err);
+    return next(err);
   });
 
   //Formato de error
   router.use((err, _req, res, _next) => {
-    res.status(err.status || 500).json({
+    return res.status(err.status || 500).json({
       title: err.title || "Server Error",
       message: err.message,
       errors: err.errors,

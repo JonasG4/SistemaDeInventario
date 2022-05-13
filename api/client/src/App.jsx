@@ -1,24 +1,43 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ListaUsuarios from "./components/usuarios/listaUsuarios";
-import Navbar from "./components/shared/navbar";
-import Sidebar from "./components/shared/sidebar";
 import Login from "./components/auth/login";
+import Dashboard from "./components/dashboard";
+import Layout from "./components/shared/Layout";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import * as sessionActions from "./store/session";
 import Categorias from "./components/categorias/Categorias";
 import CategoriasForm from "./components/categorias/CategoriasForm";
 function App() {
+  const dispatch = useDispatch();
+  const [isLogggin, setLogin] = useState(false);
+
+  useEffect(() => {
+    dispatch(sessionActions.restoreUser()).then(() => setLogin(true));
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/auth/login" element={<Login />}></Route>
-          <Route path="/categorias" element={<Categorias />} />
-          <Route path="/categorias/new" element={<CategoriasForm />} />
-          <Route path="/categorias/:id/edit" element={<CategoriasForm />} />
-          <Route path="/" element={<ListaUsuarios />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <>
+      <Routes>
+        <Route path="/*" element={<Sidebar />} />
+        <Route path="/auth/login" element={<Login />}></Route>
+      </Routes>
+    </>
+  );
+}
+
+function Sidebar() {
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/usuarios" element={<ListaUsuarios />} />
+        <Route path="/categorias" element={<Categorias />} />
+        <Route path="/categorias/new" element={<CategoriasForm />} />
+        <Route path="/categorias/:id/edit" element={<CategoriasForm />} />
+      </Routes>
+    </Layout>
   );
 }
 

@@ -48,6 +48,8 @@ class UsuarioValidation {
         .withMessage(
           "La contraseña debe contener al menos una letra mayúscula, una minúscula y un número"
         ),
+
+        //AGREGASTE ESTO?
       handleValidationErrors,
     ];
 

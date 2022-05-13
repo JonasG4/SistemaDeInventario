@@ -13,7 +13,6 @@ class BaseBusiness {
 
     async get(id){
         const entity = await this._entityRepository.get(id);
-        if(!entity) return null;
         return mapper(this.entityToMap, entity.toJSON());
     }
 

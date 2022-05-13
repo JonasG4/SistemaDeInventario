@@ -7,12 +7,16 @@ class UsuarioRepository extends BaseRepository {
     super(db, entity);
   }
 
+  getAllUsuarios() {
+    return this._db[this.entity].findAll({ include: this._db.Roles });
+  }
+
   getUsuarioByEmail(email) {
     const response = this._db[this.entity].findOne({
       where: {
-        email: email
+        email: email,
       },
-      include: [this._db.Roles]
+      include: [this._db.Roles],
     });
     if (!response) return null;
     return response;
@@ -29,6 +33,10 @@ class UsuarioRepository extends BaseRepository {
       return null;
     }
     return response;
+  }
+
+  createUsuario(entity) {
+    return this._db[this.entity].create(entity);
   }
 
   updateUsuario(id, entity) {

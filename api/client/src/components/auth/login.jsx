@@ -1,20 +1,32 @@
 import React, { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/solid";
 // import {Input} from '../shared/forms'
 import InputText from "../shared/forms/inputText";
 import InputPassword from "../shared/forms/InputPassword";
+import { useDispatch, useSelector } from "react-redux";
+import * as sessionActions from "../../store/session";
+
 export default function Login() {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+
+  const dispatch = useDispatch(); 
+  const sessionUser = useSelector((state) => state.session.user);
   const navigate = useNavigate();
+
+
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputPasswordErr, setInputPasswordErr] = useState(false);
 
   const [messageEmailError, setMessageEmailError] = useState("");
   const [messagePasswordError, setMessagePasswordError] = useState("");
+
+  if (sessionUser) {
+    return navigate("/");
+  }
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -22,35 +34,61 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    return dispatch(sessionActions.login(credentials))
+      .then(async (res) => {
+        if(res.status === 201){
+          navigate("/");
+        }
+      })
+      .catch(async (res) => {
+        const data = await res.json();
+        const status = await res.status;
 
-    const res = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(credentials),
-      headers: { "Content-Type": "application/json" },
-    });
+        if (status === 404) {
+          setInputEmailErr(true);
+          setMessageEmailError(data.msg);
+        } else {
+          setInputEmailErr(false);
+          setMessageEmailError("");
+        }
 
-    const status = await res.status;
-    const data = await res.json();
+        if (status === 401) {
+          setInputPasswordErr(true);
+          setMessagePasswordError(data.msg);
+        } else {
+          setInputPasswordErr(false);
+          setMessagePasswordError("");
+        }
+      });
 
-    if (status === 404) {
-      setInputEmailErr(true);
-      setMessageEmailError(data.msg);
-    }else{
-      setInputEmailErr(false);
-      setMessageEmailError("");
-    }
-    
-    if(status === 401){
-      setInputPasswordErr(true)
-      setMessagePasswordError(data.msg)
-    }else{
-      setInputPasswordErr(false)
-      setMessagePasswordError("")
-    }
+  //   const res = await fetch("http://localhost:5000/api/auth/login", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(credentials),
+  //   });
 
-    if(status === 201){
-      navigate('/')
-    }
+  //   const status = await res.status;
+  //   const data = await res.json();
+
+  //   if (status === 404) {
+  //     setInputEmailErr(true);
+  //     setMessageEmailError(data.msg);
+  //   } else {
+  //     setInputEmailErr(false);
+  //     setMessageEmailError("");
+  //   }
+
+  //   if (status === 401) {
+  //     setInputPasswordErr(true);
+  //     setMessagePasswordError(data.msg);
+  //   } else {
+  //     setInputPasswordErr(false);
+  //     setMessagePasswordError("");
+  //   }
+
+  //   if (status === 201) {
+  //     navigate("/");
+  //   }
   };
 
   return (
