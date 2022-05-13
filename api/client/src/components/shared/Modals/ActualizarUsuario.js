@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import { PersonAdd, CheckRounded, CloseRounded } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import {
+  PersonAdd,
+  CheckRounded,
+  CloseRounded,
+  Edit,
+} from "@mui/icons-material";
 import { FormModal } from "../../../context/Modal";
-import { useDispatch } from "react-redux";
-import { createUser } from "../../../store/usuarios";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleUser } from "../../../store/usuarios";
 
-export default function RegistroUsuarios() {
+export default function ActualizarUsuario(props) {
   const [showModal, setShowModal] = useState(false);
+  const [userData, setUserData] = useState()
   const [isChecked, setIsChecked] = useState(true);
+  const dispatch = useDispatch();
 
   //Campos variables
   const [usuario, setUsuario] = useState({
@@ -27,29 +34,39 @@ export default function RegistroUsuarios() {
     }
   };
 
-  const dispatch = useDispatch();
+  const activeModal = async () => {
+    
+    await fetch(`/api/usuarios/${props.id}`).then(async(res) => {
+      const data = await res.json()
+      setUserData(data.usuario)
+      setIsChecked(data.usuario.estado == 1 ? true : false)
+      setShowModal(true);
+    })
+    
+    console.log("ROL========", userData)
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-      return dispatch(createUser(usuario))
-        .then(() => {
-          setShowModal(false);
-        })
-        .catch(async (res) => console.log("Error: ", res));
-    };
+    // return dispatch(createUser(usuario))
+    //   .then(() => {
+    //     setShowModal(false);
+    //   })
+    //   .catch(async (res) => console.log("Error: ", res));
+  };
 
   return (
     <>
-      <div
-        className="w-auto px-4 h-[35px] bg-sky-600 rounded cursor-pointer shadow-lg flex items-center justify-center hover:bg-opacity-80"
-        onClick={() => setShowModal(true)}
-      >
-        <PersonAdd className="!fill-slate-50" />
-        <p className="text-sm font-bold text-slate-50 ml-2">Agregar usuario</p>
-      </div>
+      <em className="cursor-pointer" onClick={activeModal}>
+        <Edit className="!text-slate-500 w-5 hover:!text-opacity-70" />
+      </em>
       {showModal && (
-        <FormModal onClose={() => setShowModal(false)} className="w-[400px]" titulo="Registro de usuario">
+        <FormModal
+          onClose={() => setShowModal(false)}
+          className="w-[400px]"
+          titulo="Actualizar usuario"
+        >
           <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             {/* INPUTS */}
             <div className="flex flex-col gap-2">
@@ -63,6 +80,7 @@ export default function RegistroUsuarios() {
                 <input
                   type="text"
                   name="nombre"
+                  value={userData.nombre}
                   onChange={handleChange}
                   className="w-[300px] shadow-lg outline-none px-5 py-2 rounded-lg text-sm placeholder:text-slate-400 placeholder:font-medium"
                   placeholder="Escriba su nombre"
@@ -83,6 +101,7 @@ export default function RegistroUsuarios() {
                 <input
                   type="text"
                   name="apellido"
+                  value={userData.apellido}
                   onChange={handleChange}
                   placeholder="Escriba su apellido"
                   className="w-[300px] shadow-lg outline-none px-5 py-2 rounded-lg text-[12px] placeholder:text-slate-400 placeholder:font-medium"
@@ -103,54 +122,13 @@ export default function RegistroUsuarios() {
                 <input
                   type="email"
                   name="email"
+                  value={userData.email}
                   onChange={handleChange}
                   placeholder="Escriba su correo electronico"
                   className="w-[300px] shadow-lg outline-none px-5 py-2 rounded-lg text-[12px] placeholder:text-slate-400 placeholder:font-medium"
                 />
                 <div className="w-[25px] h-[25px] rounded-full border-[1px] border-sky-600 flex justify-center items-center shadow-[0px_4px_10px_-1px_rgba(0,0,0,0.3)]">
                   <CheckRounded className="!text-sky-600 !text-sm" />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="nombre"
-                className="text-sm text-slate-600 font-bold"
-              >
-                Contraseña
-              </label>
-              <div className="flex items-center gap-4">
-                <input
-                  type="password"
-                  name="password"
-                  onChange={handleChange}
-                  placeholder="Escriba su contraseña"
-                  className="w-[300px] shadow-lg outline-none px-5 py-2 rounded-lg text-[12px] placeholder:text-slate-400 placeholder:font-medium"
-                />
-                <div className="w-[25px] h-[25px] rounded-full border-[1px] border-bg-red-btn flex justify-center items-center shadow-[0px_4px_10px_-1px_rgba(0,0,0,0.3)]">
-                  {/* <CheckRounded className="!text-sky-600 !text-sm" /> */}
-                  <CloseRounded className="!text-sm !text-bg-red-btn" />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="nombre"
-                className="text-sm text-slate-600 font-bold"
-              >
-                Confirmar contraseña
-              </label>
-              <div className="flex items-center gap-4">
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  onChange={handleChange}
-                  placeholder="Vuelva a escribir su contraseña"
-                  className="w-[300px] shadow-lg outline-none px-5 py-2 rounded-lg text-[12px] placeholder:text-slate-400 placeholder:font-medium"
-                />
-                <div className="w-[25px] h-[25px] rounded-full border-[1px] border-bg-red-btn flex justify-center items-center shadow-[0px_4px_10px_-1px_rgba(0,0,0,0.3)]">
-                  {/* <CheckRounded className="!text-sky-600 !text-sm" /> */}
-                  <CloseRounded className="!text-sm !text-bg-red-btn" />
                 </div>
               </div>
             </div>
@@ -167,7 +145,7 @@ export default function RegistroUsuarios() {
                   id="id_rol"
                   onChange={handleChange}
                   className="rounded p-1 shadow-lg outline-none"
-                  defaultValue={2}
+                  defaultValue={userData.id_rol}
                 >
                   <option value="1">Superadmin</option>
                   <option value="2">Admin</option>
@@ -227,7 +205,7 @@ export default function RegistroUsuarios() {
                 type="submit"
                 className="bg-sky-600 rounded-md w-40 py-1 text-slate-50 font-bold text-sm"
               >
-                Guardar
+                Actualizar
               </button>
             </div>
           </form>

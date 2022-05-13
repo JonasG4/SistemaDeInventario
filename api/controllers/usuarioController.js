@@ -26,7 +26,6 @@ class UsuarioController {
         message: `Usuario con id: ${id} no existe.`,
       });
     }
-    usuario = mapper(UsuarioDto, usuario);
     return res.send({
       error: false,
       usuario: usuario,
