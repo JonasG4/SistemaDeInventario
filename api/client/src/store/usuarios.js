@@ -1,12 +1,20 @@
 import { csrfFetch } from "./csrf";
 
 const LOAD_ALL_USERS = "users/";
+const LOAD_SINGLE_USER = "users/id";
 const SET_USER = "user/create";
 
 export const loadUsers = (usuarios) => {
   return {
     type: LOAD_ALL_USERS,
     usuarios,
+  };
+};
+
+export const loadSingleUser = (usuario) => {
+  return {
+    type: LOAD_SINGLE_USER,
+    usuario,
   };
 };
 
@@ -26,25 +34,43 @@ export const getAllUsers = () => async (dispatch) => {
   }
 };
 
+export const getSingleUser = (userId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/usuarios/${userId}`);
+  
+  const data = await response.json();
+  if (response.ok) {
+    dispatch(loadSingleUser(data.usuario));
+  }
+  return response
+};
+
 export const createUser = (newUser) => async (dispatch) => {
   const { nombre, apellido, email, password, confirmPassword, id_rol, estado } =
     newUser;
-    console.log(newUser)
-    const response = await csrfFetch("/api/usuarios", {
-      method: "POST",
-      body: JSON.stringify({
-        nombre,
-        apellido,
-        email,
-        password,
-        confirmPassword,
-        id_rol,
-        estado,
-      }),
-    });
-    
+  console.log(newUser);
+  const response = await csrfFetch("/api/usuarios", {
+    method: "POST",
+    body: JSON.stringify({
+      nombre,
+      apellido,
+      email,
+      password,
+      confirmPassword,
+      id_rol,
+      estado,
+    }),
+  });
+
   const data = await response.json();
   dispatch(setUser(data));
+  return response;
+};
+
+export const deleteUsuario = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/usuarios/${id}`, {
+    method: "DELETE",
+  });
+
   return response;
 };
 
@@ -62,6 +88,9 @@ export default function usersReducer(state = initialState, action) {
       return newState;
     case SET_USER:
       return { ...state, user: action.payload };
+    case LOAD_SINGLE_USER:
+      updatedState[action.usuario.id_usuario] = action.usuario;
+      return updatedState;
     default:
       return state;
   }

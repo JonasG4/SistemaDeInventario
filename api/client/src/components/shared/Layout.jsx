@@ -14,6 +14,8 @@ import {
   SettingsApplicationsOutlined,
   StoreMallDirectory,
   StoreMallDirectoryOutlined,
+  Category,
+  CategoryOutlined
 } from "@mui/icons-material";
 
 export default function Layout({ children }) {
@@ -41,6 +43,12 @@ export default function Layout({ children }) {
       icon: <StoreMallDirectoryOutlined className={`${iconStyle}`} />,
       iconSelected: <StoreMallDirectory className={`${iconSelectStyle}`} />,
       to: "/Productos",
+    },
+    {
+      title: "Categorias",
+      icon: <CategoryOutlined className={`${iconStyle}`} />,
+      iconSelected: <Category className={`${iconSelectStyle}`} />,
+      to: "/Categorias",
     },
     {
       title: "Reportes",
