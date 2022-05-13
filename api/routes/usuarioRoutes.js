@@ -5,14 +5,13 @@ module.exports = function ({ UsuarioController, AuthMiddleware, UsuarioValidatio
 
   router.get(
     "/",
-    AuthMiddleware.isAdmin.bind(AuthMiddleware),
     UsuarioController.getUsuarios.bind(UsuarioController)
   );
-  router.get("/:id", UsuarioController.getUsuario.bind(UsuarioController));
+  router.get("/:id",
+  UsuarioController.getUsuario.bind(UsuarioController));
   
   router.post(
     "/",
-    UsuarioValidation.validate(),
     UsuarioController.createUsuario.bind(UsuarioController)
   );
   

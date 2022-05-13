@@ -14,6 +14,7 @@ export default function InputPassword(props) {
             props.isError ? "border-red-500" : "border-transparent"
           }` }
         placeholder={props.placeholder}
+        value={props.value}
       />
 
       {showPassword ? (

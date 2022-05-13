@@ -12,6 +12,7 @@ export default function input(props) {
         name={props.name}
         onChange={props.onChange}
         placeholder={props.placeholder}
+        value={props.value}
       />
       {props.isError &&
         <XCircleIcon className={`absolute h-6 right-[20px] top-[11px] stroke-red-500 stroke-2`} />
