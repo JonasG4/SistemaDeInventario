@@ -4,28 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import * as usuariosStore from "../../store/usuarios";
 import { InputSearchWithFilter } from "../shared/forms/FormInputs";
-import AddUsuario from '../shared/Modals/RegistroUsuarios'
+import AddUsuario from "../shared/Modals/RegistroUsuarios";
+import DeleteUsuario from "../shared/Modals/EliminarUsuario";
+import ActualizarUsuario from "../shared/Modals/ActualizarUsuario";
 
 export default function Usuarios() {
   const dispatch = useDispatch();
   const usuarios = useSelector((state) => state.usuarios);
-  const [showModal, setShowModal] = useState(true);
+  const [deleteIdUsuario, setDeleteIdUsuario] = useState();
+  const [updateIdUsuario, setUpdateIdUsuario] = useState();
 
+  console.log(deleteIdUsuario);
   useEffect(() => {
     dispatch(usuariosStore.getAllUsers());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (!showModal) return;
-
-    const closeMenu = () => {
-      setShowModal(false);
-    };
-
-    return () => document.removeEventListener("click", closeMenu);
-  });
-
-  console.log("Result", usuarios);
 
   return (
     <div className="min-w-full flex flex-col">
@@ -83,22 +75,8 @@ export default function Usuarios() {
                   {usuario.estado === 1 ? "Activo" : "Desactivado"}
                 </td>
                 <td className="px-6 py-4 flex items-center justify-center gap-2">
-                  <em
-                    className="cursor-pointer"
-                    onClick={() =>
-                      console.log("VIVAN LA PUTAS", usuario.id_usuario)
-                    }
-                  >
-                    <Edit className="!text-slate-500 w-5 hover:!text-opacity-70" />
-                  </em>
-                  <em
-                    className="cursor-pointer"
-                    onClick={() =>
-                      console.log("VIVAN LA PUTAS", usuario.id_usuario)
-                    }
-                  >
-                    <Delete className="!text-slate-500 w-5"></Delete>
-                  </em>
+                  <ActualizarUsuario id={usuario.id_usuario} />
+                  <DeleteUsuario id={usuario.id_usuario} />
                 </td>
               </tr>
             ))}

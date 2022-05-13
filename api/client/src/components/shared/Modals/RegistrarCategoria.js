@@ -46,10 +46,10 @@ export default function RegistroUsuarios() {
         onClick={() => setShowModal(true)}
       >
         <PersonAdd className="!fill-slate-50" />
-        <p className="text-sm font-bold text-slate-50 ml-2">Agregar usuario</p>
+        <p className="text-sm font-bold text-slate-50 ml-2">Agregar categoria</p>
       </div>
       {showModal && (
-        <FormModal onClose={() => setShowModal(false)} className="w-[400px]" titulo="Registro de usuario">
+        <FormModal onClose={() => setShowModal(false)} className="w-[400px]" titulo="Registro de categoria">
           <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             {/* INPUTS */}
             <div className="flex flex-col gap-2">
