@@ -19,7 +19,7 @@ export default function Usuarios() {
     if (!showModal) return;
 
     const closeMenu = () => {
-      setShowModal(false);
+      setShowModal(true);
     };
 
     return () => document.removeEventListener("click", closeMenu);

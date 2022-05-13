@@ -37,6 +37,12 @@ export default function Layout({ children }) {
       to: "/usuarios/",
     },
     {
+      title: "Proveedores",
+      icon: <GroupOutlined className={`${iconStyle}`} />,
+      iconSelected: <Group className={`${iconSelectStyle}`} />,
+      to: "/proveedores/",
+    },
+    {
       title: "Productos",
       icon: <StoreMallDirectoryOutlined className={`${iconStyle}`} />,
       iconSelected: <StoreMallDirectory className={`${iconSelectStyle}`} />,
