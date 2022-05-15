@@ -1,53 +1,67 @@
 import { csrfFetch } from "./csrf";
+import { createSlice } from "@reduxjs/toolkit";
 
-const LOAD_ALL_USERS = "users/";
-const LOAD_SINGLE_USER = "users/id";
-const SET_USER = "user/create";
+export const userSlice = createSlice({
+  name: "usuarios",
+  initialState: {
+    list: [],
+    singleUsuario: [],
+  },
+  reducers: {
+    setUsuarios: (state, action) => {
+      state.list = action.payload;
+    },
+    setNewUsuario: (state, action) => {
+      state.list.concat(action.payload);
+    },
+    setSingleUsuario: (state, action) => {
+      state.singleUser = action.payload;
+    },
+    setModifyUsuario: (state, action) => {
+      const index = state.list.findIndex(
+        (usuario) => usuario.id_usuario === action.payload.id_usuario
+      );
+      state.list[index] = action.payload;
+    },
+    removeUsuario: (state, action) => {
+      state.list = state.list.filter(
+        (usuario) => usuario.id_usuario !== action.payload
+      );
+    },
+  },
+});
 
-export const loadUsers = (usuarios) => {
-  return {
-    type: LOAD_ALL_USERS,
-    usuarios,
-  };
-};
-
-export const loadSingleUser = (usuario) => {
-  return {
-    type: LOAD_SINGLE_USER,
-    usuario,
-  };
-};
-
-export const setUser = (newUser) => {
-  return {
-    type: SET_USER,
-    newUser,
-  };
-};
+export const {
+  setUsuarios,
+  setNewUsuario,
+  removeUsuario,
+  setModifyUsuario,
+  setSingleUsuario,
+} = userSlice.actions;
 
 export const getAllUsers = () => async (dispatch) => {
   const response = await csrfFetch("/api/usuarios");
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(loadUsers(data.message));
+    dispatch(setUsuarios(data.message));
   }
 };
 
-export const getSingleUser = (userId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/usuarios/${userId}`);
-  
+export const getSingleUsuario = (id) => async (dispatch) => {
+  const response = await csrfFetch(`/api/usuarios/${id}`);
+
   const data = await response.json();
   if (response.ok) {
-    dispatch(loadSingleUser(data.usuario));
+    dispatch(setSingleUsuario(data.usuario));
   }
-  return response
+  return data;
 };
 
-export const createUser = (newUser) => async (dispatch) => {
+export const createUsuario = (usuario) => async (dispatch) => {
   const { nombre, apellido, email, password, confirmPassword, id_rol, estado } =
-    newUser;
-  console.log(newUser);
+    usuario;
+
   const response = await csrfFetch("/api/usuarios", {
     method: "POST",
     body: JSON.stringify({
@@ -61,8 +75,11 @@ export const createUser = (newUser) => async (dispatch) => {
     }),
   });
 
-  const data = await response.json();
-  dispatch(setUser(data));
+  if (response.status === 201) {
+    const data = await response.json();
+    dispatch(setNewUsuario(data.usuario));
+  }
+
   return response;
 };
 
@@ -71,27 +88,43 @@ export const deleteUsuario = (id) => async (dispatch) => {
     method: "DELETE",
   });
 
+  const data = await response.json();
+  dispatch(removeUsuario(data.payload));
+
   return response;
 };
 
-const initialState = {};
+export const updateUsuario = (usuario) => async (dispatch) => {
+  const {
+    id_usuario,
+    nombre,
+    apellido,
+    email,
+    password,
+    confirmPassword,
+    id_rol,
+    estado,
+  } = usuario;
 
-export default function usersReducer(state = initialState, action) {
-  let updatedState = { ...state };
+  const response = csrfFetch(`/api/usuarios/${id_usuario}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      nombre,
+      apellido,
+      email,
+      password,
+      confirmPassword,
+      id_rol,
+      estado,
+    }),
+  });
 
-  switch (action.type) {
-    case LOAD_ALL_USERS:
-      const newState = {};
-      action.usuarios.forEach((usuario) => {
-        newState[usuario.id_usuario] = usuario;
-      });
-      return newState;
-    case SET_USER:
-      return { ...state, user: action.payload };
-    case LOAD_SINGLE_USER:
-      updatedState[action.usuario.id_usuario] = action.usuario;
-      return updatedState;
-    default:
-      return state;
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setModifyUsuario(data.usuario));
   }
-}
+
+  return response;
+};
+
+export default userSlice.reducer;

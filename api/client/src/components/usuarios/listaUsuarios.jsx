@@ -1,23 +1,21 @@
 import { Pagination } from "@mui/material";
-import { Edit, Delete, FilterList, PersonAdd } from "@mui/icons-material";
+import { Delete, FilterList } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import * as usuariosStore from "../../store/usuarios";
+import { useEffect } from "react";
+import { getAllUsers } from "../../store/usuarios";
 import { InputSearchWithFilter } from "../shared/forms/FormInputs";
-import AddUsuario from "../shared/Modals/RegistroUsuarios";
-import DeleteUsuario from "../shared/Modals/EliminarUsuario";
-import ActualizarUsuario from "../shared/Modals/ActualizarUsuario";
+import AddUsuario from "./modales/registroModal";
+import DeleteUsuario from "./modales/eliminarModal";
+import ActualizarUsuario from "./modales/editarModal";
 
 export default function Usuarios() {
-  const dispatch = useDispatch();
-  const usuarios = useSelector((state) => state.usuarios);
-  const [deleteIdUsuario, setDeleteIdUsuario] = useState();
-  const [updateIdUsuario, setUpdateIdUsuario] = useState();
+  const usuarios = useSelector((state) => state.usuarios.list);
 
-  console.log(deleteIdUsuario);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(usuariosStore.getAllUsers());
-  }, [dispatch]);
+    dispatch(getAllUsers());
+  }, [dispatch, usuarios]);
 
   return (
     <div className="min-w-full flex flex-col">
@@ -54,6 +52,7 @@ export default function Usuarios() {
             </tr>
           </thead>
           <tbody>
+            {/* MAPEO DE LA LISTA DE USUARIOS */}
             {Object.values(usuarios).map((usuario, index) => (
               <tr className="odd:bg-slate-100" key={index}>
                 <td className="border-r-[1px] px-6 py-4">
@@ -85,8 +84,8 @@ export default function Usuarios() {
       </div>
       <div className="flex pt-5 items-center justify-between w-full">
         <p className="text-slate-600 font-bold text-md">
-          {Object.values(usuarios).length}
-          {Object.values(usuarios).length > 1 ? " elementos" : " elemento"}
+          {usuarios.length}
+          {usuarios.length > 1 ? " elementos" : " elemento"}
         </p>
         <div>
           <Pagination count={3} className={`text-slate-600`} />

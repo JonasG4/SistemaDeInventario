@@ -21,7 +21,7 @@ export function ModalProvider({ children }) {
   );
 }
 
-export function FormModal({ onClose, className, titulo, children }) {
+export function FormModal({ onClose, className, titulo, icon, children }) {
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 
@@ -40,7 +40,7 @@ export function FormModal({ onClose, className, titulo, children }) {
         className={`absolute bg-slate-50 ${className} rounded-xl`}
       >
         <div className="flex justify-between items-center p-5">
-          <PersonAdd className="!text-sky-600 !text-[25px]"/>
+          {icon}
           <p className="text-lg font-bold text-sky-900">{titulo}</p>
           <div
             className="rounded-full shadow-[2px_2px_5px_1px_rgba(0,0,0,0.3)] w-[25px] h-[25px] flex items-center justify-center cursor-pointer"

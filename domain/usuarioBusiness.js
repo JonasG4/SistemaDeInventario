@@ -41,7 +41,7 @@ class UsuarioBusiness extends BaseBusiness {
       id,
       entity
     );
-    return mapper(this.entityToMap, updatedEntity);
+    return updatedEntity;
   }
 
   async deleteUsuario(id) {
