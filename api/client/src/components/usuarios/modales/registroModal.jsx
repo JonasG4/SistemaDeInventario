@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { PersonAdd, CheckRounded, CloseRounded } from "@mui/icons-material";
 import { FormModal } from "../../../context/Modal";
 import { useDispatch } from "react-redux";
-import { createUser } from "../../../store/usuarios";
+import { createUsuario } from "../../../store/usuarios";
 
 export default function RegistroUsuarios() {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
-
+  const dispatch = useDispatch();
   //Campos variables
   const [usuario, setUsuario] = useState({
     nombre: "",
@@ -20,24 +20,16 @@ export default function RegistroUsuarios() {
   });
 
   const handleChange = (e) => {
-    if (e.target.type === "checkbox") {
-      setUsuario({ ...usuario, [e.target.name]: e.target.checked });
-    } else {
-      setUsuario({ ...usuario, [e.target.name]: e.target.value });
-    }
+    setUsuario({ ...usuario, [e.target.name]: e.target.value });
   };
-
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-      return dispatch(createUser(usuario))
-        .then(() => {
-          setShowModal(false);
-        })
-        .catch(async (res) => console.log("Error: ", res));
-    };
+    usuario.estado = isChecked ? "1" : "2";
+
+    return dispatch(createUsuario(usuario)).then(() => setShowModal(false));
+  };
 
   return (
     <>
@@ -46,10 +38,15 @@ export default function RegistroUsuarios() {
         onClick={() => setShowModal(true)}
       >
         <PersonAdd className="!fill-slate-50" />
-        <p className="text-sm font-bold text-slate-50 ml-2">Agregar categoria</p>
+        <p className="text-sm font-bold text-slate-50 ml-2">Agregar usuario</p>
       </div>
       {showModal && (
-        <FormModal onClose={() => setShowModal(false)} className="w-[400px]" titulo="Registro de categoria">
+        <FormModal
+          onClose={() => setShowModal(false)}
+          className="w-[400px]"
+          icon={<PersonAdd className="!text-sky-600 !text-[25px]"/>}
+          titulo="Registro de usuario"
+        >
           <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             {/* INPUTS */}
             <div className="flex flex-col gap-2">
@@ -191,13 +188,10 @@ export default function RegistroUsuarios() {
                     type="checkbox"
                     name="estado"
                     className="sr-only peer"
-                    onChange={(e) => {
-                      e.target.checked
-                        ? setIsChecked(true)
-                        : setIsChecked(false);
-                      handleChange(e);
-                    }}
                     checked={isChecked}
+                    onChange={(e) => {
+                      setIsChecked(!isChecked);
+                    }}
                   />
                   <span
                     className={`w-[25px] h-4/5 bg-slate-50 absolute rounded-full top-1 ${
