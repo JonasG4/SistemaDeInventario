@@ -44,10 +44,9 @@ class UsuarioRepository extends BaseRepository {
       where: {
         id_usuario: id,
       },
+      returning: true,
+      plain: true,
     });
-    if (!response) {
-      return null;
-    }
 
     return response;
   }

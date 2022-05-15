@@ -1,21 +1,16 @@
-import React, { useState } from "react";
-import {
-  PersonRemove,
-  CheckRounded,
-  CloseRounded,
-  Delete,
-} from "@mui/icons-material";
+import { useState } from "react";
+import { Delete, PersonRemove } from "@mui/icons-material";
 import { FormModal } from "../../../context/Modal";
+import { useDispatch } from "react-redux";
+import { deleteUsuario } from "../../../store/usuarios";
 
 export default function RegistroUsuarios(props) {
   const [showModal, setShowModal] = useState(false);
- 
-  async function deleteUser(id){
-    fetch(`/api/usuarios/${id}`, {
-      method: "DELETE",
-    }).then(() => {
-        setShowModal(false)
-    })
+
+  const dispatch = useDispatch();
+
+  async function deleteUser(id) {
+    return dispatch(deleteUsuario(id)).then(() => setShowModal(false));
   }
   return (
     <>
@@ -27,8 +22,11 @@ export default function RegistroUsuarios(props) {
           onClose={() => setShowModal(false)}
           className="w-[400px]"
           titulo="Borrar usuario"
+          icon={<PersonRemove className="!text-bg-red-btn !text-[25px]"/>}
         >
-            <p className="text-xl text-center text-sky-800">¿Está seguro que desea eliminar éste registro?</p>
+          <p className="text-xl text-center text-sky-800">
+            ¿Está seguro que desea eliminar éste registro?
+          </p>
           <div className="flex justify-between my-5">
             <button
               type="button"

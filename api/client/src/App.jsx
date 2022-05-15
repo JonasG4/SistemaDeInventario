@@ -7,8 +7,6 @@ import Layout from "./components/shared/Layout";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import * as sessionActions from "./store/session";
-import Categorias from "./components/categorias/Categorias";
-import CategoriasForm from "./components/categorias/CategoriasForm";
 function App() {
   const dispatch = useDispatch();
   const [isLogggin, setLogin] = useState(false);
@@ -33,9 +31,6 @@ function Sidebar() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/usuarios" element={<ListaUsuarios />} />
-        <Route path="/categorias" element={<Categorias />} />
-        <Route path="/categorias/new" element={<CategoriasForm />} />
-        <Route path="/categorias/:id/edit" element={<CategoriasForm />} />
       </Routes>
     </Layout>
   );

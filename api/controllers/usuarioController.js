@@ -11,7 +11,7 @@ class UsuarioController {
 
   async getUsuarios(req, res) {
     let usuarios = await this._usuarioService.getAllUsuarios();
-    return res.send({
+    return res.status(200).send({
       error: false,
       message: usuarios,
     });
@@ -45,6 +45,7 @@ class UsuarioController {
           message: `Se ha creado el usuario: ${
             usuario.nombre + " " + usuario.apellido
           }!`,
+          usuario: usuario
         });
       })
       .catch((err) => {
@@ -55,8 +56,9 @@ class UsuarioController {
   async updateUsuario(req, res) {
     const { body } = req;
     const { id } = req.params;
-    let response = await this._usuarioService.updateUsuario(id, body);
+    const response = await this._usuarioService.updateUsuario(id, body);
 
+    console.log(response[1].dataValues);
     //Not found
     if (!response) {
       return res.status(404).send({
@@ -67,6 +69,8 @@ class UsuarioController {
     return res.status(208).send({
       error: false,
       message: "Usuario actualizado el usuario con exito!",
+      usuario: response[1].dataValues
+      
     });
   }
 
@@ -77,6 +81,7 @@ class UsuarioController {
     return res.status(206).send({
       error: false,
       message: "Se ha eliminado el usuario con exito!",
+      payload: id
     });
   }
 }
