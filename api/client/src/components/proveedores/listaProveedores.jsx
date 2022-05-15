@@ -22,23 +22,28 @@ export default function ListaProveedores() {
 
   useEffect(() => {
     dispatch(proveedorStore.getAllProveedores());
-  },[dispatch])
+  },[dispatch,proveedores])
 
   const handleChange = (e) => {
     setProveedor({...proveedor, [e.target.name]: e.target.value})
-    console.log(proveedor)
   }
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    dispatch(createProveedor(proveedor))
+    return dispatch(createProveedor(proveedor))
       .then(res => {
-        console.log(res);
-        navigate('/')  
+        if(res.ok) {
+          navigate('/proveedores')
+        }
       })
+      .catch(e => console.log(e))
   }
 
-  console.log("Result", proveedores)
+  const deleteProveedor = (id) => {
+    dispatch(proveedorStore.deleteProveedor(id));
+    console.log(proveedores);
+  }
+
   return (
     <div className="min-w-full flex flex-col">
       <h1 className="font-bold text-xl text-cyan-800">Usuarios | Listado </h1>
@@ -193,9 +198,7 @@ export default function ListaProveedores() {
                  </em>
                  <em
                    className="cursor-pointer"
-                   onClick={() =>
-                     console.log("VIVAN", proveedor.id_proveedor)
-                   }
+                   onClick={() => deleteProveedor(proveedor.id)}
                  >
                    <Delete className="!text-slate-500 w-5"></Delete>
                  </em>

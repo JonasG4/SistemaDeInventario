@@ -49,9 +49,11 @@ export const createProveedor = (newProveedor) => async(dispatch) => {
 }
 
 export const removeProveedor = (id) => async(dispatch) => {
+  console.log("Holaaaaaaaa",id)
   const response = await csrfFetch(`/api/proveedores/${id}`, {
     method: "DELETE"
   })
+  dispatch(deleteProveedor())
   return response;
 }
 
@@ -68,6 +70,12 @@ export default function proveedorReducer(state = initialState, action) {
       return newState;
     case SET_PROVEEDOR:
       return {...state, proveedor: action.payload}    
+
+    case DELETE_PROVEEDOR:
+      return {
+        ...state,
+        proveedor: action.payload
+      }
     default:
       return state
   }
