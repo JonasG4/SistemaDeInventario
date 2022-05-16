@@ -8,7 +8,6 @@ class CategoriaController {
 
   async getCategorias(req, res) {
     let categorias = await this._categoriaService.getAll();
-    categorias = categorias.map((categoria) => mapper(CategoriaDto, categoria));
     return res.send({
       error: false,
       message: categorias,
@@ -19,11 +18,11 @@ class CategoriaController {
     let { id } = req.params;
     console.log(id);
     let categoria = await this._categoriaService.getCategoriaById(id);
+    
     if (!categoria) {
       return res.status(404).send();
     }
 
-    categoria = mapper(CategoriaDto, categoria);
     return res.send({
       error: false,
       categoria: categoria,
@@ -31,13 +30,13 @@ class CategoriaController {
   }
 
   async crearCategoria(req, res){
-    // console.log("aaaaaaaaa",req);
     try {      
       const { body }  = req;
       const crearCategoria = await this._categoriaService.create(body);
       return res.status(201).send({
         error: false,
-        message: "Categoria creado con exito!"
+        message: "Categoria creado con exito!",
+        data: crearCategoria
       })
     } catch (error) {
       res.status(401).send(error)
@@ -47,10 +46,12 @@ class CategoriaController {
   async modificarCategoria(req, res){
     const { body } = req;
     const { id } = req.params;
-    await this._categoriaService.updateCategoria(id, body);
+    const categoria = await this._categoriaService.updateCategoria(id, body);
+   
     return res.status(204).send({
       error: false,
-      message: "Categoria actualizada con exito!"
+      message: "Categoria actualizada con exito!",
+      categoria: categoria
     })
   }
 

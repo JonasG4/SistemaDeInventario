@@ -24,13 +24,13 @@ export default function RegistroUsuarios() {
   const handleChange = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     usuario.estado = isChecked ? 1 : 2;
 
-    return dispatch(createUsuario(usuario)).then(() => setShowModal(false));
+    return dispatch(createUsuario(usuario)).then(() => setShowModal(false)).catch()
   };
 
   return (

@@ -10,7 +10,7 @@ class CategoriasBusiness extends BaseBusiness {
   async getCategoriaById(id){
     const entity = await this._entityRepository.getCategoriaById(id);
     if(!entity) return null;
-    return mapper(this.entityToMap, entity.toJSON());
+    return entity.toJSON()
   }
 
   async getCategoriaByName(name) {

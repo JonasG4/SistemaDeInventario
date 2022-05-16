@@ -26,8 +26,10 @@ class UsuarioBusiness extends BaseBusiness {
   }
 
   async createUsuario(entity) {
+  
     entity.created_at = new Date().toUTCString();
     entity.updated_at = new Date().toUTCString();
+  
     entity = mapper(this.entityToMap, entity);
     const createdEntity = await this._entityRepository.createUsuario(entity);
     return createdEntity.toJSON();

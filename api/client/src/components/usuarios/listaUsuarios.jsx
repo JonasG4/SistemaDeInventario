@@ -1,21 +1,23 @@
 import { Pagination } from "@mui/material";
-import { Delete, FilterList } from "@mui/icons-material";
+import { Delete, FilterList, Search, Tune } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllUsers } from "../../store/usuarios";
-import { InputSearchWithFilter } from "../shared/forms/FormInputs";
+// import { InputSearchWithFilter } from "../shared/forms/FormInputs";
 import AddUsuario from "./modales/registroModal";
 import DeleteUsuario from "./modales/eliminarModal";
 import ActualizarUsuario from "./modales/editarModal";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios.list);
+  const [searchText, setSearchText] = useState("");
 
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch(getAllUsers());
-  }, [dispatch, usuarios]);
+  }, [dispatch, usuarios]);setSearchText
 
   return (
     <div className="min-w-full flex flex-col">
@@ -25,7 +27,16 @@ export default function Usuarios() {
           <AddUsuario />
         </div>
         <div className="flex gap-5 items-center ml-auto">
-          <InputSearchWithFilter />
+          <div className="relative">
+            <Search className="absolute left-4 top-[10px] !text-[18px] !fill-slate-600" />
+            <input
+              type="text"
+              className="bg-slate-300 bg-opacity-60 rounded px-2 h-[35px] pl-12 pr-12 outline-none text-sm w-[250px]"
+              placeholder="Búsqueda"
+              onChange={(e) => searchResult(e)}
+            />
+            <Tune className="absolute right-4 top-[10px] !text-[18px] !fill-slate-600" />
+          </div>
           <div className="w-[45px] h-[35px] bg-slate-50 rounded cursor-pointer shadow-lg flex items-center justify-center hover:bg-opacity-80">
             <FilterList className="!fill-sky-600" />
           </div>

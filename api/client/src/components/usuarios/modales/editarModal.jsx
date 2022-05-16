@@ -25,6 +25,7 @@ export default function ActualizarUsuario(props) {
   const activeModal = async () => {
     return dispatch(getSingleUsuario(props.id)).then(async (data2) => {
       setUsuarioData(data2.usuario);
+      console.log(data2.usuario);
       setIsChecked(data2.usuario.estado === 1);
       setShowModal(true);
     });

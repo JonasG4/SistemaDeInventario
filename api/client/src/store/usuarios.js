@@ -74,13 +74,15 @@ export const createUsuario = (usuario) => async (dispatch) => {
       estado,
     }),
   });
-
+  
+  const data = await response.json();
+  
   if (response.status === 201) {
-    const data = await response.json();
     dispatch(setNewUsuario(data.usuario));
   }
 
-  return response;
+
+  return data;
 };
 
 export const deleteUsuario = (id) => async (dispatch) => {
