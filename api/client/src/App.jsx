@@ -1,6 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import ListaUsuarios from "./components/usuarios/listaUsuarios";
+import ListaProveedores from "./components/proveedores/listaProveedores"
 import Login from "./components/auth/login";
 import Dashboard from "./components/dashboard";
 import Layout from "./components/shared/Layout";
@@ -31,6 +32,7 @@ function Sidebar() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/usuarios" element={<ListaUsuarios />} />
+        <Route path="/proveedores" element={<ListaProveedores />} />
       </Routes>
     </Layout>
   );
