@@ -10,5 +10,6 @@ export default configureStore({
     session: sessionReducer,
     usuarios: usuariosReducer,
     categorias: categoriasReducer,
+    proveedores: proveedoresReducer
   }
 });
