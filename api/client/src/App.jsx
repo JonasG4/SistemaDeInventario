@@ -1,13 +1,19 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+
+import * as sessionActions from "./store/session";
+
+
+// RUTAS
 import ListaUsuarios from "./components/usuarios/listaUsuarios";
 import ListaProveedores from "./components/proveedores/listaProveedores"
 import Login from "./components/auth/login";
 import Dashboard from "./components/dashboard";
 import Layout from "./components/shared/Layout";
-import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import * as sessionActions from "./store/session";
+import Categorias from './components/categorias'
+
 function App() {
   const dispatch = useDispatch();
   const [isLogggin, setLogin] = useState(false);
@@ -32,6 +38,7 @@ function Sidebar() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/usuarios" element={<ListaUsuarios />} />
+        <Route path="/categorias" element={<Categorias />} />
         <Route path="/proveedores" element={<ListaProveedores />} />
       </Routes>
     </Layout>

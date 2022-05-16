@@ -15,7 +15,7 @@ export const userSlice = createSlice({
       state.list.concat(action.payload);
     },
     setSingleUsuario: (state, action) => {
-      state.singleUser = action.payload;
+      state.singleUsuario = action.payload;
     },
     setModifyUsuario: (state, action) => {
       const index = state.list.findIndex(
@@ -74,13 +74,15 @@ export const createUsuario = (usuario) => async (dispatch) => {
       estado,
     }),
   });
-
+  
+  const data = await response.json();
+  
   if (response.status === 201) {
-    const data = await response.json();
     dispatch(setNewUsuario(data.usuario));
   }
 
-  return response;
+
+  return data;
 };
 
 export const deleteUsuario = (id) => async (dispatch) => {

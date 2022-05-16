@@ -64,7 +64,7 @@ module.exports = function ({
   //Formato de error
   router.use((err, _req, res, _next) => {
     return res.status(err.status || 500).json({
-      title: err.title || "Server Error",
+      title: err.title || "Server Error chucha qliao",
       message: err.message,
       errors: err.errors,
     });
