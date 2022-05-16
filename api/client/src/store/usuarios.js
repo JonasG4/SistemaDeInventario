@@ -15,7 +15,7 @@ export const userSlice = createSlice({
       state.list.concat(action.payload);
     },
     setSingleUsuario: (state, action) => {
-      state.singleUser = action.payload;
+      state.singleUsuario = action.payload;
     },
     setModifyUsuario: (state, action) => {
       const index = state.list.findIndex(

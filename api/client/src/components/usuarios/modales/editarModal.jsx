@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CheckRounded, Edit } from "@mui/icons-material";
 import { PencilAltIcon } from "@heroicons/react/solid";
 import { FormModal } from "../../../context/Modal";
@@ -25,20 +25,26 @@ export default function ActualizarUsuario(props) {
   const activeModal = async () => {
     return dispatch(getSingleUsuario(props.id)).then(async (data2) => {
       setUsuarioData(data2.usuario);
-      console.log(data2.usuario.estado)
       setIsChecked(data2.usuario.estado === 1);
       setShowModal(true);
     });
   };
 
   const handleChange = (e) => {
-    setUsuarioData({ ...usuarioData, [e.target.name]: e.target.value });
+    if (e.target.type === "checkbox") {
+      setUsuarioData({
+        ...usuarioData,
+        [e.target.name]: e.target.checked ? "1" : "0",
+      });
+
+      console.log("Input", e.target.checked);
+    } else {
+      setUsuarioData({ ...usuarioData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setUsuarioData({ ...usuarioData, estado: "1" });
 
     return dispatch(updateUsuario(usuarioData))
       .then(() => {
@@ -159,10 +165,12 @@ export default function ActualizarUsuario(props) {
                 >
                   <input
                     type="checkbox"
+                    name="estado"
                     className="sr-only peer"
                     checked={isChecked}
                     onChange={(e) => {
                       setIsChecked(!isChecked);
+                      handleChange(e);
                     }}
                   />
                   <span
@@ -184,7 +192,7 @@ export default function ActualizarUsuario(props) {
             {/* BOTONES */}
             <div className="flex justify-between my-3">
               <button
-                type="submit"
+                type="button"
                 className="bg-bg-red-btn rounded-md w-40 py-1 text-slate-50 font-bold text-sm"
               >
                 Limpiar campos

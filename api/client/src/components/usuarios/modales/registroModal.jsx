@@ -8,6 +8,8 @@ export default function RegistroUsuarios() {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
   const dispatch = useDispatch();
+
+
   //Campos variables
   const [usuario, setUsuario] = useState({
     nombre: "",
@@ -26,7 +28,7 @@ export default function RegistroUsuarios() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    usuario.estado = isChecked ? "1" : "2";
+    usuario.estado = isChecked ? 1 : 2;
 
     return dispatch(createUsuario(usuario)).then(() => setShowModal(false));
   };
