@@ -11,7 +11,8 @@ module.exports = function ({
   PrecioRoutes,
   RolRoutes,
   AuthRoutes,
-  ProveedorRoutes
+  ProveedorRoutes,
+  MaterialRoutes
 }) {
   const router = Router();
   const apiRoute = Router();
@@ -25,6 +26,7 @@ module.exports = function ({
   apiRoute.use("/roles", RolRoutes);
   apiRoute.use("/auth", AuthRoutes);
   apiRoute.use('/proveedores', ProveedorRoutes);
+  apiRoute.use('/materiales', MaterialRoutes);
   router.use("/api", apiRoute);
   router.use("/api", apiRoute);
 

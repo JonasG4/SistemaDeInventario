@@ -3,5 +3,6 @@ module.exports = {
     CategoriasBusiness: require('./categoriaBusiness'),
     ProductoBusiness: require('./productoBusiness'),
     PrecioBusiness: require('./precioBusiness'),
-    ProveedorBusiness: require('./proveedorBusiness')
+    ProveedorBusiness: require('./proveedorBusiness'),
+    MaterialBusiness: require('./materialBusiness')
 }

@@ -3,5 +3,6 @@ module.exports = {
     CategoriaService: require('./categoriaServices'),
     ProductoService: require('./productoServices'),
     PrecioService: require('./precioServices'),
-    ProveedorService: require('./proveedorServices')
+    ProveedorService: require('./proveedorServices'),
+    MaterialService: require('./materialServices')
 }
