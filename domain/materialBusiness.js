@@ -4,7 +4,12 @@ const mapper = require("automapper-js");
 
 class MaterialBusiness extends BaseBusiness {
   constructor({ MaterialRepository }) {
-    super(MaterialRepository,Proveedores);
+    super(MaterialRepository,Material);
+  }
+
+  async getMateriales() {
+    const materiales = await this._entityRepository.getMateriales();
+    return materiales;
   }
 
   async getMaterialById(id) {
@@ -24,7 +29,7 @@ class MaterialBusiness extends BaseBusiness {
     entity.id_material = id;
     entity = mapper(this.entityToMap, entity);
     const updateEntity = await this._entityRepository.updateMaterial(id,entity);
-    return mapper(this.entityToMap,updateEntity);
+    return updateEntity
   }
 
   async deleteMaterial(id) {

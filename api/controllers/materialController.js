@@ -7,7 +7,7 @@ class MaterialController {
   }
 
   async getMateriales(req,res) {
-    let materiales = await this._materialService.getAll();
+    let materiales = await this._materialService.getMateriales();
     return res.send({
       error: false,
       message: materiales
@@ -53,10 +53,11 @@ class MaterialController {
         message: "Registro no encontrado",
       });
     }
-    return res.status(204).send({
+    console.log("Holaaaaaaaa", response)
+    return res.status(206).send({
       error: false,
       message: "Registro actualizado con exito!",
-      material: response[1].dataValues
+      material: response[1]
     });
   }
 

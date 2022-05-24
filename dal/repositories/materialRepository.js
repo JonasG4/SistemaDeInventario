@@ -1,5 +1,5 @@
 const BaseRepository = require('./baseRepository');
-const models = require('../models/materiales');
+const models = require('../models/index');
 
 class MaterialRepository extends BaseRepository {
   constructor( { db } ) {
@@ -8,12 +8,13 @@ class MaterialRepository extends BaseRepository {
 
   getMateriales() {
     return this._db[this.entity].findAll({
-      include: this._db.Usuarios
+      include: [{model: models.Usuario, required: true}]
     })
   }
 
   getMaterialById(id) {
     const response = this._db[this.entity].findOne({
+      include: [{model: models.Usuario, required: true}],
       where: {
         id_material: id,
       },
@@ -27,6 +28,7 @@ class MaterialRepository extends BaseRepository {
 
   getMaterialByName(name) {
     const response = this._db[this.entity].findOne({
+      include: [{model: models.Usuario, required: true}],
       where: {
         nombre: name
       }
@@ -40,8 +42,10 @@ class MaterialRepository extends BaseRepository {
   updateMaterial(id,entity) {
     const response = this._db[this.entity].update(entity, {
       where: {
-        id_material: id
-      }
+        id_material: id,
+      },
+      returning: true,
+      plain: true,
     });
     if(!response) return null;
 

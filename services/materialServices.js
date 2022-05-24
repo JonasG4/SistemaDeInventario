@@ -6,6 +6,11 @@ class MaterialService extends BaseService {
     super(MaterialBusiness);
   }
 
+  async getMateriales() {
+    const entity = await this._entityBusiness.getMateriales();
+    return entity;
+  }
+
   async getMaterialById(id) {
     const entity = await this._entityBusiness.getMaterialById(id);
     return entity;
