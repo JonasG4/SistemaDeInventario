@@ -12,7 +12,9 @@ module.exports = function ({
   RolRoutes,
   AuthRoutes,
   ProveedorRoutes,
-  MaterialRoutes
+  MaterialRoutes,
+  CompraRoutes,
+  DetCompraRoutes,
 }) {
   const router = Router();
   const apiRoute = Router();
@@ -27,6 +29,8 @@ module.exports = function ({
   apiRoute.use("/auth", AuthRoutes);
   apiRoute.use('/proveedores', ProveedorRoutes);
   apiRoute.use('/materiales', MaterialRoutes);
+  apiRoute.use('/compras', CompraRoutes);
+  apiRoute.use('/detalle-compras', DetCompraRoutes);
   router.use("/api", apiRoute);
   router.use("/api", apiRoute);
 

@@ -4,5 +4,7 @@ module.exports = {
     ProductoService: require('./productoServices'),
     PrecioService: require('./precioServices'),
     ProveedorService: require('./proveedorServices'),
-    MaterialService: require('./materialServices')
+    MaterialService: require('./materialServices'),
+    CompraService: require('./compraServices'),
+    DetCompraService: require('./detCompraServices')
 }

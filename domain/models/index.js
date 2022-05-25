@@ -4,5 +4,7 @@ module.exports = {
     Productos: require('./productos'),
     Precios: require('./precios'),
     Proveedores: require('./proveedores'),
-    Material: require('./material')
+    Material: require('./material'),
+    Compra: require('./compra'),
+    DetCompra: require('./detCompra')
 }
