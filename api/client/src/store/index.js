@@ -3,6 +3,7 @@ import sessionReducer from "./session";
 import usuariosReducer from './usuarios'
 import proveedoresReducer from './proveedores';
 import categoriasReducer from './categorias'
+import materialReducer from './materials';
 
 
 export default configureStore({
@@ -10,6 +11,7 @@ export default configureStore({
     session: sessionReducer,
     usuarios: usuariosReducer,
     categorias: categoriasReducer,
-    proveedores: proveedoresReducer
+    proveedores: proveedoresReducer,
+    materials: materialReducer
   }
 });
