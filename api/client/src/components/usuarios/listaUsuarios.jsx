@@ -7,14 +7,12 @@ import { getAllUsers } from "../../store/usuarios";
 import AddUsuario from "./modales/registroModal";
 import DeleteUsuario from "./modales/eliminarModal";
 import ActualizarUsuario from "./modales/editarModal";
+import { Navigate } from "react-router-dom";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios.list);
   const [searchText, setSearchText] = useState("");
-
   const dispatch = useDispatch();
-
-
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch, usuarios]);

@@ -18,6 +18,7 @@ module.exports = function ({
 
   apiRoute.use(cors()).use(bodyParser.json()).use(compression());
 
+  //Rutas principales
   apiRoute.use('/categorias', CategoriaRoutes);
   apiRoute.use('/productos',ProductoRoutes);
   apiRoute.use('/precios', PrecioRoutes);
@@ -25,16 +26,19 @@ module.exports = function ({
   apiRoute.use("/roles", RolRoutes);
   apiRoute.use("/auth", AuthRoutes);
   apiRoute.use('/proveedores', ProveedorRoutes);
+  
+  
+  //Agregar a XSRF-TOKEN cookie en desarollo
+  apiRoute.get("/csrf/restore", (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
+    console.log("~~~~~~~che si entra boludo~~~~~~~~~");
+    res.status(201).json({
+      
+    });
+  });
+  
   router.use("/api", apiRoute);
-  router.use("/api", apiRoute);
-
-  //Rutas principales
-  apiRoute.use("/categorias", CategoriaRoutes);
-  apiRoute.use("/productos", ProductoRoutes);
-  apiRoute.use("/usuarios", UsuarioRoutes);
-  apiRoute.use("/roles", RolRoutes);
-  apiRoute.use("/auth", AuthRoutes);
-
+  
   // Acceder a una ruta invalidad del servidor
   router.use((_req, _res, next) => {
     const err = new Error("El recurso no fue encontrado");
@@ -43,13 +47,8 @@ module.exports = function ({
     err.status = 404;
     return next(err);
   });
+  
 
-  //Agregar a XSRF-TOKEN cookie en desarollo
-  apiRoute.get("/csrf/restore", (req, res) => {
-    res.cookie("XSRF-TOKEN", req.csrfToken());
-    console.log("che si entra boludo");
-    return res.status(201).json({});
-  });
 
   //Manejador de errores
   router.use((err, _req, _res, next) => {
@@ -64,9 +63,9 @@ module.exports = function ({
   //Formato de error
   router.use((err, _req, res, _next) => {
     return res.status(err.status || 500).json({
-      title: err.title || "Server Error chucha qliao",
+      title: err.title || "Server Error",
       message: err.message,
-      errors: err.errors,
+      errors: err.errors
     });
   });
 

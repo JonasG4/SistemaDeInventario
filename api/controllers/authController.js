@@ -67,10 +67,8 @@ class AuthController {
 
         try {
           const { email } = jwtPayload.credenciales;
-          console.log("payload: ", email);
           req.usuario = await this._usuarioServices.getUsuarioByEmail(email);
         } catch (e) {
-          console.log("===== COOKIE BORRADA =====");
           res.clearCookie("token");
           return next();
         }
@@ -78,9 +76,8 @@ class AuthController {
         if (!req.usuario) res.clearCookie("token");
 
         return next();
-      }
-    );
-  }
+      });
+  };
 
   logout(_req, res) {
     res.clearCookie("token");

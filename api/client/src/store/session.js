@@ -1,23 +1,26 @@
 import { csrfFetch } from "./csrf";
+import { createSlice } from "@reduxjs/toolkit";
 
-const SET_USER = "auth/login/login";
-const REMOVE_USER = "auth/logout";
+export const sesionSlice = createSlice({
+  name: "sesion",
+  initialState: {
+    usuario: null,
+  },
+  reducers: {
+    setUsuario: (state, action) => {
+      state.usuario = action.payload;
+    },
+    removerUser: (state, action) =>{
+      state.usuario = null;
+    }
+  },
+});
 
-const setUser = (user) => {
-  return {
-    type: SET_USER,
-    payload: user,
-  };
-};
-
-const removerUser = () => {
-  return {
-    type: REMOVE_USER,
-  };
-};
+export const { setUsuario, removerUser } = sesionSlice.actions;
 
 export const login = (user) => async (dispatch) => {
   const { email, password } = user;
+
   const response = await csrfFetch("/api/auth/login", {
     method: "POST",
     body: JSON.stringify({
@@ -25,42 +28,32 @@ export const login = (user) => async (dispatch) => {
       password,
     }),
   });
-
+  
   const data = await response.json();
-  dispatch(setUser(data.usuario));
+  dispatch(setUsuario(data.usuario));
   return response;
-};
-
-const initialState = { user: null };
-
-const sessionReducer = (state = initialState, action) => {
-  let newState;
-  switch (action.type) {
-    case SET_USER:
-      return { ...state, user: action.payload };
-    case REMOVE_USER:
-      newState = Object.assign({}, state);
-      newState.user = null;
-      return newState;
-    default:
-      return state;
-  }
 };
 
 export const restoreUser = () => async (dispatch) => {
   const response = await csrfFetch("/api/auth");
-  const data = await response.json();
-  dispatch(setUser(data.usuario));
+  
+  if(response.ok){
+    const data = await response.json();
+    dispatch(setUsuario(data));
+  }
+  
   return response;
 };
 
 export const logout = () => async (dispatch) => {
-  const response = await csrfFetch("api/auth", {
+  const response = await csrfFetch("api/auth/logout", {
     method: "DELETE",
   });
 
-  dispatch(removerUser);
+  dispatch(removerUser());
   return response;
 };
 
-export default sessionReducer;
+
+
+export default sesionSlice.reducer;

@@ -8,7 +8,8 @@ export default function RegistroUsuarios() {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
   const dispatch = useDispatch();
-
+  const [isValidate, seIsValidate] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   //Campos variables
   const [usuario, setUsuario] = useState({
@@ -24,13 +25,19 @@ export default function RegistroUsuarios() {
   const handleChange = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     usuario.estado = isChecked ? 1 : 2;
 
-    return dispatch(createUsuario(usuario)).then(() => setShowModal(false)).catch()
+    return dispatch(createUsuario(usuario))
+      .then(() => setShowModal(false))
+      .catch(async (res) => {
+        const data = await res.json();
+        setErrors(data.errors);
+        seIsValidate(true);
+      });
   };
 
   return (
@@ -46,7 +53,7 @@ export default function RegistroUsuarios() {
         <FormModal
           onClose={() => setShowModal(false)}
           className="w-[400px]"
-          icon={<PersonAdd className="!text-sky-600 !text-[25px]"/>}
+          icon={<PersonAdd className="!text-sky-600 !text-[25px]" />}
           titulo="Registro de usuario"
         >
           <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -63,11 +70,19 @@ export default function RegistroUsuarios() {
                   type="text"
                   name="nombre"
                   onChange={handleChange}
-                  className="w-[300px] shadow-lg outline-none px-5 py-2 rounded-lg text-sm placeholder:text-slate-400 placeholder:font-medium"
+                  className="w-full shadow-lg outline-none px-5 py-2 rounded-lg text-sm placeholder:text-slate-400 placeholder:font-medium  duration-100 ease-out"
                   placeholder="Escriba su nombre"
                 />
-                <div className="w-[25px] h-[25px] rounded-full border-[1px] border-sky-600 flex justify-center items-center shadow-[0px_4px_10px_-1px_rgba(0,0,0,0.3)]">
-                  <CheckRounded className="!text-sky-600 !text-sm" />
+                <div className={`${!isValidate ? "hidden" : ""} h-full flex justify-center items-center`}>
+                  {!errors.nombre ? (
+                    <div className="w-[25px] h-[25px] rounded-full border-[1px] border-sky-600 flex justify-center items-center shadow-[0px_4px_10px_-1px_rgba(0,0,0,0.3)]">
+                      <CheckRounded className="!text-sky-600 !text-sm" />
+                    </div>
+                  ) : (
+                    <div className="w-[25px] h-[25px] rounded-full border-[1px] border-bg-red-btn flex justify-center items-center shadow-[0px_4px_10px_-1px_rgba(0,0,0,0.3)]">
+                      <CloseRounded className="!text-sm !text-bg-red-btn" />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

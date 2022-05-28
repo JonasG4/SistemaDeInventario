@@ -80,8 +80,6 @@ export const createUsuario = (usuario) => async (dispatch) => {
   if (response.status === 201) {
     dispatch(setNewUsuario(data.usuario));
   }
-
-
   return data;
 };
 

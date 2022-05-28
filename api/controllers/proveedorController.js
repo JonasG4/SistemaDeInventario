@@ -20,8 +20,6 @@ class ProveedorController {
     if(!proveedor) {
       return res.status(404).send();
     }
-
-    proveedor = mapper(ProveedorDto, proveedor);
     return res.send({
       error: false,
       message: proveedor

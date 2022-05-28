@@ -31,8 +31,8 @@ export default function ActualizarSuppler(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setSupplierData(supplierData);
-
+      // setSupplierData(supplierData)
+    
     return dispatch(updateSupplier(supplierData))
       .then(() => {
         setShowModal(false);

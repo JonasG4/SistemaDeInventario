@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { removerUser } from '../../store/session';
+import {useDispatch} from 'react-redux'
+
 import {
   Menu,
   DashboardOutlined,
@@ -9,13 +12,12 @@ import {
   Group,
   SummarizeOutlined,
   Summarize,
-  BedroomChildRounded,
   SettingsApplications,
   SettingsApplicationsOutlined,
   StoreMallDirectory,
   StoreMallDirectoryOutlined,
   Category,
-  CategoryOutlined
+  CategoryOutlined,
 } from "@mui/icons-material";
 
 export default function Layout({ children }) {
@@ -24,6 +26,12 @@ export default function Layout({ children }) {
   const iconSelectStyle = "w-5 !fill-sky-600";
   const { pathname } = useLocation();
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  const logout = () => {
+    return dispatch(removerUser()).then(() => navigate('/login'));
+  }
 
   const Menus = [
     {
@@ -80,14 +88,16 @@ export default function Layout({ children }) {
           } duration-200 flex rounded-l-lg border-slate-300 border-r-[2px] flex-col relative`}
         >
           {/* LOGO */}
-          <div className=" w-full text-sky-600 font-bold flex items-center h-[80px] pl-8 text-lg">
-            <BedroomChildRounded className="!fil-sky-600" />
+          <div className=" w-full text-sky-600 font-bold flex items-center h-[80px] pl-8 lg:text-lg sm:text-sm md:text-base">
+            <div onClick={() => setSidebarOpen(!sidebarOpen)}>
+              <Menu className="!fil-sky-600 cursor-pointer" />
+            </div>
             <span
               className={`${
                 !sidebarOpen && "w-0 inline opacity-0 ml-0 pointer-events-none"
-              } ml-3 origin-left duration-100 ease-in font-semibold  whitespace-nowrap `}
+              } ml-3 origin-left duration-100 ease-in font-bold  whitespace-nowrap`}
             >
-              Muebleria Perez
+             Muebleria Perez
             </span>
           </div>
 
@@ -97,7 +107,7 @@ export default function Layout({ children }) {
               <li
                 key={index}
                 className={`
-            w-full cursor-pointer flex items-center py-4 hover:bg-slate-100 pl-8 text-md text-slate-400 relative
+            w-full cursor-pointer flex items-center py-4 hover:bg-slate-100 pl-8 lg:text-lg sm:text-sm md:text-base text-slate-400 relative
             ${
               menu.to === pathname &&
               "bg-slate-100 border-r-[2px] border-sky-600 duration-200 ease-in"
@@ -117,14 +127,12 @@ export default function Layout({ children }) {
                 >
                   {menu.title}
                 </p>
-                {/* {!sidebarOpen &&
-                  <span className="absolute left-full ml-3 bg-slate-600 py-1 px-2 rounded-md text-slate-200">{menu.title}</span>
-                } */}
               </li>
             ))}
             {/* LOGOUT */}
             <li
-              className={`w-full  cursor-pointer flex items-center py-6 text-sm text-slate-500 mt-auto pl-8 `}
+              className={`w-full cursor-pointer flex items-center py-6 text-sm text-slate-500 mt-auto pl-8`}
+              onClick={() => logout}
             >
               <ExitToAppOutlined className={`${iconStyle} !fill-sky-600`} />
               <p
@@ -144,14 +152,13 @@ export default function Layout({ children }) {
           <header className="w-full">
             <nav className="bg-slate-50 h-[80px] border-b-[2px] border-slate-300 w-full px-5">
               <div className="w-full flex items-center h-full">
-                <div onClick={() => setSidebarOpen(!sidebarOpen)}>
-                  <Menu className="!cursor-pointer !fill-slate-400" />
-                </div>
+                {/* CONTENIDO  */}
                 <div></div>
               </div>
             </nav>
           </header>
           {/* ------------------------------ FIN NAVBAR ----------------------------- */}
+
           {/* ------------------------------------ CONTENIDO PRINCIPAL ------------------------- */}
           <main className="min-w-full min-h-full p-8">{children}</main>
         </div>
@@ -159,5 +166,3 @@ export default function Layout({ children }) {
     </div>
   );
 }
-
-  

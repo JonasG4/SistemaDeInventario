@@ -41,6 +41,7 @@ export default function Login() {
         }
       })
       .catch(async (res) => {
+        console.log("error here?")
         const data = await res.json();
         const status = await res.status;
 
@@ -60,35 +61,6 @@ export default function Login() {
           setMessagePasswordError("");
         }
       });
-
-  //   const res = await fetch("http://localhost:5000/api/auth/login", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(credentials),
-  //   });
-
-  //   const status = await res.status;
-  //   const data = await res.json();
-
-  //   if (status === 404) {
-  //     setInputEmailErr(true);
-  //     setMessageEmailError(data.msg);
-  //   } else {
-  //     setInputEmailErr(false);
-  //     setMessageEmailError("");
-  //   }
-
-  //   if (status === 401) {
-  //     setInputPasswordErr(true);
-  //     setMessagePasswordError(data.msg);
-  //   } else {
-  //     setInputPasswordErr(false);
-  //     setMessagePasswordError("");
-  //   }
-
-  //   if (status === 201) {
-  //     navigate("/");
-  //   }
   };
 
   return (
