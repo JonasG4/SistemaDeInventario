@@ -3,5 +3,8 @@ module.exports = {
     Categorias: require('./categorias'),
     Productos: require('./productos'),
     Precios: require('./precios'),
-    Proveedores: require('./proveedores')
+    Proveedores: require('./proveedores'),
+    Material: require('./material'),
+    Compra: require('./compra'),
+    DetCompra: require('./detCompra')
 }

@@ -51,6 +51,12 @@ export default function Layout({ children }) {
       to: "/Productos",
     },
     {
+      title: "Materiales",
+      icon: <StoreMallDirectoryOutlined className={`${iconStyle}`} />,
+      iconSelected: <StoreMallDirectory className={`${iconSelectStyle}`} />,
+      to: "/materiales",
+    },
+    {
       title: "Categorias",
       icon: <CategoryOutlined className={`${iconStyle}`} />,
       iconSelected: <Category className={`${iconSelectStyle}`} />,

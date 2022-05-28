@@ -9,6 +9,7 @@ import * as sessionActions from "./store/session";
 // RUTAS
 import ListaUsuarios from "./components/usuarios/listaUsuarios";
 import ListaProveedores from "./components/proveedores/listaProveedores"
+import ListaMateriales from "./components/materiales/listaMateriales";
 import Login from "./components/auth/login";
 import Dashboard from "./components/dashboard";
 import Layout from "./components/shared/Layout";
@@ -40,6 +41,8 @@ function Sidebar() {
         <Route path="/usuarios" element={<ListaUsuarios />} />
         <Route path="/categorias" element={<Categorias />} />
         <Route path="/proveedores" element={<ListaProveedores />} />
+
+        <Route path="/materiales" element={<ListaMateriales />} />
       </Routes>
     </Layout>
   );

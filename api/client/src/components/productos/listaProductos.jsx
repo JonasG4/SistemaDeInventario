@@ -1,29 +1,20 @@
-import React,{useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
-import { FormModal  } from '../../context/Modal'
+import React,{useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {getAllSuppliers} from '../../store/proveedores';
 import { InputSearchWithFilter } from "../shared/forms/FormInputs";
 import AddSupplier from "./modales/registroModal";
 import { Edit, Delete, FilterList, PersonAdd, CheckRounded, CloseRounded } from "@mui/icons-material";
-import ActualizarSupplier from "./modales/editarModal";
-import DeleteSupplier from "./modales/eliminarModal";
+// import ActualizarSupplier from "./modales/editarModal";
+// import DeleteSupplier from "./modales/eliminarModal";
 import { Pagination } from "@mui/material";
-
-export default function ListaProveedores() {
-  const navigate = useNavigate();
-  const proveedores = useSelector((state) => state.proveedores.list);
-  const dispatch = useDispatch();
-
-
-  useEffect(() => {
-   dispatch(getAllSuppliers()); 
-  },[dispatch,proveedores])
-
-
+export default function listaProductos() {
+  // const navigate = useNavigate();
+  const products = useSelector((state) => state.productos.list);
+  // const dispatch = useDispatch();
   return (
     <div className="min-w-full flex flex-col">
-      <h1 className="font-bold text-xl text-cyan-800">Proveedores | Listado </h1>
+      <h1 className="font-bold text-xl text-cyan-800">Productos | Listado </h1>
       <div className="flex gap-5 items-center mt-5">
         <div className="flex gap-5 items-center">
           <AddSupplier />
@@ -48,37 +39,41 @@ export default function ListaProveedores() {
               <th className="px-6 py-4 text-sm text-cyan-800 border-r-[1px]">
                 Nombre
               </th>
-              <th className="px-6 py-4 text-sm text-cyan-800">Telefono Fijo</th>
-              <th className="px-6 py-4 text-sm text-cyan-800">Telefono Personal</th>
-              <th className="px-6 py-4 text-sm text-cyan-800">Fecha creación</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Tamaño</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Descripcion</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Categoria</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Fecha creacion</th>
               <th className="px-6 py-4 text-sm text-cyan-800">Fecha actualización</th>
               <th className="px-6 py-4 text-sm text-cyan-800">Opciones</th>
             </tr>
           </thead>
           <tbody>
-            {Object.values(proveedores).map((proveedor,index) => (
+            {Object.values(products).map((product,index) => (
               <tr className="odd:bg-slate-100" key={index}>
                <td className="border-r-[1px] px-6 py-4">
                  <input type={"checkbox"} />
                </td>
                <td className="px-6 py-4 text-sm text-cyan-800">
-                {proveedor.nom_proveedor}
+                {product.nom_producto}
                </td>
                <td className="px-6 py-4 text-sm text-cyan-800">
-                {proveedor.tel_fijo}
+                {product.tam_producto}
                </td>
                <td className="px-6 py-4 text-sm text-cyan-800">
-                {proveedor.tel_personal}
+                {product.des_producto}
                </td>
                <td className="px-6 py-4 text-sm text-cyan-800">
-                 {proveedor.created_at}
+                 {product.cod_categoria}
+               </td>
+               <td className="px-6 py-4 text-sm text-cyan-800">
+                 {product.created_at}
                </td>
                <td className="px-6 py-4text-sm text-cyan-800">
-                {proveedor.updated_at}
+                {product.updated_at}
                </td>
                <td className="px-6 py-4 flex items-center justify-center gap-2">
-                  <ActualizarSupplier id={proveedor.id_proveedor} />
-                  <DeleteSupplier id={proveedor.id_proveedor} />
+                  {/* <ActualizarSupplier id={proveedor.id_proveedor} /> */}
+                  {/* <DeleteSupplier id={proveedor.id_proveedor} /> */}
                 </td>
              </tr>
             ))}
@@ -95,5 +90,6 @@ export default function ListaProveedores() {
         </div>
       </div>
     </div>
-  );
+  )
 }
+

@@ -2,31 +2,32 @@ import React,{useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FormModal  } from '../../context/Modal'
 import { useDispatch, useSelector } from 'react-redux';
+import { getMaterials } from '../../store/materials'
+import Axios from 'axios';
 import {getAllSuppliers} from '../../store/proveedores';
 import { InputSearchWithFilter } from "../shared/forms/FormInputs";
-import AddSupplier from "./modales/registroModal";
+import AddMaterial from "./modales/registroModal";
 import { Edit, Delete, FilterList, PersonAdd, CheckRounded, CloseRounded } from "@mui/icons-material";
 import ActualizarSupplier from "./modales/editarModal";
 import DeleteSupplier from "./modales/eliminarModal";
 import { Pagination } from "@mui/material";
 
-export default function ListaProveedores() {
+export default function ListaMateriales() {
+  const [material,setMaterial] = useState([]);
   const navigate = useNavigate();
-  const proveedores = useSelector((state) => state.proveedores.list);
+  const materials = useSelector((state) => state.materials.materialList);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-   dispatch(getAllSuppliers()); 
-  },[dispatch,proveedores])
-
-
+    Axios.get('/api/materiales')
+      .then(response => dispatch(getMaterials(response.data.message)))
+  },[])
   return (
     <div className="min-w-full flex flex-col">
-      <h1 className="font-bold text-xl text-cyan-800">Proveedores | Listado </h1>
+      <h1 className="font-bold text-xl text-cyan-800">Materiales | Listado </h1>
       <div className="flex gap-5 items-center mt-5">
         <div className="flex gap-5 items-center">
-          <AddSupplier />
+          <AddMaterial />
         </div>
         <div className="flex gap-5 items-center ml-auto">
           <InputSearchWithFilter />
@@ -48,40 +49,49 @@ export default function ListaProveedores() {
               <th className="px-6 py-4 text-sm text-cyan-800 border-r-[1px]">
                 Nombre
               </th>
-              <th className="px-6 py-4 text-sm text-cyan-800">Telefono Fijo</th>
-              <th className="px-6 py-4 text-sm text-cyan-800">Telefono Personal</th>
-              <th className="px-6 py-4 text-sm text-cyan-800">Fecha creación</th>
-              <th className="px-6 py-4 text-sm text-cyan-800">Fecha actualización</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Mínimo Stock</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Fecha Ingreso</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Fecha modificación</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Usuario ingresado</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Usuario modificó</th>
+              <th className="px-6 py-4 text-sm text-cyan-800">Estado</th>
               <th className="px-6 py-4 text-sm text-cyan-800">Opciones</th>
             </tr>
           </thead>
           <tbody>
-            {Object.values(proveedores).map((proveedor,index) => (
+            {console.log(materials)}
+            { materials.map((element,index) => (
               <tr className="odd:bg-slate-100" key={index}>
                <td className="border-r-[1px] px-6 py-4">
                  <input type={"checkbox"} />
                </td>
                <td className="px-6 py-4 text-sm text-cyan-800">
-                {proveedor.nom_proveedor}
+                {element.nombre}
                </td>
                <td className="px-6 py-4 text-sm text-cyan-800">
-                {proveedor.tel_fijo}
+                {element.min_stock}
                </td>
                <td className="px-6 py-4 text-sm text-cyan-800">
-                {proveedor.tel_personal}
+                {element.fecha_ing}
                </td>
                <td className="px-6 py-4 text-sm text-cyan-800">
-                 {proveedor.created_at}
+                 {element.fecha_mod}
                </td>
                <td className="px-6 py-4text-sm text-cyan-800">
-                {proveedor.updated_at}
+                {`${element.Usuario.nombre} ${element.Usuario.apellido}`}
+               </td>
+               <td className="px-6 py-4text-sm text-cyan-800">
+               {`${element.Usuario.nombre} ${element.Usuario.apellido}`}
+               </td>
+               <td className="px-6 py-4text-sm text-cyan-800">
+                {element.estado}
                </td>
                <td className="px-6 py-4 flex items-center justify-center gap-2">
-                  <ActualizarSupplier id={proveedor.id_proveedor} />
-                  <DeleteSupplier id={proveedor.id_proveedor} />
+                  <ActualizarSupplier id={element.id_material} />
+                  <DeleteSupplier id={element.id_material} />
                 </td>
              </tr>
-            ))}
+            ))} 
           </tbody>
         </table>
       </div>

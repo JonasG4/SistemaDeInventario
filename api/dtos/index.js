@@ -4,5 +4,8 @@ module.exports = {
     RolDto: require('./rolDto'),
     ProductoDto: require('./productoDto'),
     PrecioDto: require('./precioDto'),
-    ProveedorDto: require('./proveedorDto')
+    ProveedorDto: require('./proveedorDto'),
+    MaterialDto: require('./materialDto'),
+    CompraDto: require('./compraDto'),
+    DetCompraDto: require('./detCompraDto')
 }
