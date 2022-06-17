@@ -16,6 +16,11 @@ class CompraService extends BaseService {
     return entity;
   }
 
+  async createBuy(entity) {
+    const createdEntity = await this._entityBusiness.createBuy(entity);
+    return createdEntity;
+  }
+
   async updateCompra(id,entity) {
     const updateEntity = await this._entityBusiness.updateCompra(id,entity);
     return updateEntity;

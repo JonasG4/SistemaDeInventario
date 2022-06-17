@@ -4,6 +4,7 @@ import usuariosReducer from './usuarios'
 import proveedoresReducer from './proveedores';
 import categoriasReducer from './categorias'
 import materialReducer from './materials';
+import shoppingReducer from './shopping';
 
 
 export default configureStore({
@@ -12,6 +13,7 @@ export default configureStore({
     usuarios: usuariosReducer,
     categorias: categoriasReducer,
     proveedores: proveedoresReducer,
-    materials: materialReducer
+    materials: materialReducer,
+    shopping: shoppingReducer
   }
 });

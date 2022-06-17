@@ -32,11 +32,12 @@ class CompraController {
   async crearCompra(req, res){
     try {      
       const { body }  = req;
-      const crearCompra = await this._compraService.create(body);
-      if(crearCompra) {
+      const createBuy = await this._compraService.createBuy(body);
+      if(createBuy) {
         return res.status(201).send({
           error: false,
-          message: "Registro creado con exito!"
+          message: "Registro creado con exito!",
+          buy: createBuy
         })
       }
     } catch (error) {
@@ -56,7 +57,7 @@ class CompraController {
     return res.status(206).send({
       error: false,
       message: "Registro actualizado con exito!",
-      material: response[1]
+      material: response
     });
   }
 
