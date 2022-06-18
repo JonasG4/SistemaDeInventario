@@ -6,5 +6,6 @@ module.exports = {
     ProveedorBusiness: require('./proveedorBusiness'),
     MaterialBusiness: require('./materialBusiness'),
     CompraBusiness: require('./compraBusiness'),
-    DetCompraBusiness: require('./detCompraBusiness')
+    DetCompraBusiness: require('./detCompraBusiness'),
+    UnidadBusiness: require('./unidadBusiness')
 }

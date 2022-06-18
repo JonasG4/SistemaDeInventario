@@ -6,5 +6,6 @@ module.exports = {
     ProveedorService: require('./proveedorServices'),
     MaterialService: require('./materialServices'),
     CompraService: require('./compraServices'),
-    DetCompraService: require('./detCompraServices')
+    DetCompraService: require('./detCompraServices'),
+    UnidadService: require('./unidadServices')
 }

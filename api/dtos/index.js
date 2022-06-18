@@ -7,5 +7,6 @@ module.exports = {
     ProveedorDto: require('./proveedorDto'),
     MaterialDto: require('./materialDto'),
     CompraDto: require('./compraDto'),
-    DetCompraDto: require('./detCompraDto')
+    DetCompraDto: require('./detCompraDto'),
+    UnidadDto: require('./unidadDto')
 }

@@ -15,6 +15,7 @@ module.exports = function ({
   MaterialRoutes,
   CompraRoutes,
   DetCompraRoutes,
+  UnidadRoutes
 }) {
   const router = Router();
   const apiRoute = Router();
@@ -31,6 +32,7 @@ module.exports = function ({
   apiRoute.use('/materiales', MaterialRoutes);
   apiRoute.use('/compras', CompraRoutes);
   apiRoute.use('/detalle-compras', DetCompraRoutes);
+  apiRoute.use('/unidades', UnidadRoutes)
   router.use("/api", apiRoute);
   router.use("/api", apiRoute);
 
