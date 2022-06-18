@@ -8,5 +8,6 @@ module.exports = {
     ProveedorController: require('./proveedorController'),
     MaterialController: require('./materialController'),
     CompraController: require('./compraController'),
-    DetCompraController: require('./detCompraController')
+    DetCompraController: require('./detCompraController'),
+    UnidadController: require('./unidadController')
 };

@@ -9,17 +9,19 @@ class CompraRepository extends BaseRepository {
   getCompras() {
     return this._db[this.entity].findAll({
       include: [
-        {model: Usuario, required: true},
         {model: Proveedores, required: true},
       ]
     })
   }
 
+  createBuy(entity) {
+    return this._db[this.entity].create(entity);
+  }
+
   getCompraById(id) {
     const response = this._db[this.entity].findOne({
       include: [
-        {model: Proveedores, required: true},
-        {model: Usuario, required: true}
+        {model: Proveedores, required: true}
       ],
       where: {
         id_compra: id,

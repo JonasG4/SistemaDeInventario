@@ -18,12 +18,21 @@ class CompraBusiness extends BaseBusiness {
     return entity.toJSON();
   }
 
+  async createBuy(entity) {
+    entity.fecha_mod = new Date().toString();
+    entity = mapper(this.entityToMap, entity);
+    let createdEntity = await this._entityRepository.createBuy(entity);
+    createdEntity = await this._entityRepository.getCompraById(createdEntity.id_compra);
+    return createdEntity.toJSON();
+  }
+
   async updateCompra(id,entity) {
     entity.fecha_mod = new Date().toUTCString();
     entity.id_compra = id;
     entity = mapper(this.entityToMap, entity);
-    const updateEntity = await this._entityRepository.updateCompra(id,entity);
-    return updateEntity
+    let updateEntity = await this._entityRepository.updateCompra(id,entity);
+    updateEntity = await this._entityRepository.getCompraById(updateEntity[1].id_compra);
+    return updateEntity;
   }
 
   async deleteCompra(id) {

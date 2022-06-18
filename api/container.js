@@ -18,9 +18,10 @@ const ProveedorRoutes = require('../api/routes/proveedorRoutes');
 const MaterialRoutes = require('../api/routes/materialRoutes');
 const CompraRoutes = require('../api/routes/compraRoutes');
 const DetCompraRoutes = require('../api/routes/detCompraRoutes');
+const UnidadRoutes = require('../api/routes/unidadRoutes');
 
 // Controllers
-const { UsuarioController, CategoriaController, ProductoController, PrecioController,RolController, AuthController,ProveedorController,MaterialController,CompraController,DetCompraController } = require("../api/controllers");
+const { UsuarioController, CategoriaController, ProductoController, PrecioController,RolController, AuthController,ProveedorController,MaterialController,CompraController,DetCompraController, UnidadController } = require("../api/controllers");
 
 //MIDDLEWARES
 // const { AuthMiddleware } = require("./middlewares");
@@ -29,13 +30,13 @@ const { UsuarioController, CategoriaController, ProductoController, PrecioContro
 const { UsuarioValidation,CategoryValidation,ProductValidation,PriceValidation,ProveedorValidation } = require("./middlewares/validations");
 
 // SERVICIOS
-const { UsuarioService,CategoriaService, ProductoService, PrecioService,ProveedorService,MaterialService,CompraService,DetCompraService } = require("../services");
+const { UsuarioService,CategoriaService, ProductoService, PrecioService,ProveedorService,MaterialService,CompraService,DetCompraService, UnidadService } = require("../services");
 
 // REPOSITORIOS
-const { UsuarioRepository,CategoriaRepository, ProductoRepository, PrecioRepository,ProveedorRepository,MaterialRepository,CompraRepository,DetCompraRepository } = require("../dal/repositories");
+const { UsuarioRepository,CategoriaRepository, ProductoRepository, PrecioRepository,ProveedorRepository,MaterialRepository,CompraRepository,DetCompraRepository, UnidadesRepositoty } = require("../dal/repositories");
 
 // BUSINESS
-const { UsuarioBusiness,CategoriasBusiness, ProductoBusiness, PrecioBusiness,ProveedorBusiness,MaterialBusiness,CompraBusiness,DetCompraBusiness } = require("../domain/");
+const { UsuarioBusiness,CategoriasBusiness, ProductoBusiness, PrecioBusiness,ProveedorBusiness,MaterialBusiness,CompraBusiness,DetCompraBusiness,UnidadBusiness } = require("../domain/");
 
 
 ////MIDDLEWARES
@@ -68,6 +69,7 @@ container
     MaterialController: asClass(MaterialController).singleton(),
     CompraController: asClass(CompraController).singleton(),
     DetCompraController: asClass(DetCompraController).singleton(),
+    UnidadController: asClass(UnidadController).singleton(),
   })
   .register({
     //Registrar middlewares
@@ -93,7 +95,8 @@ container
     ProveedorRoutes: asFunction(ProveedorRoutes).singleton(),
     MaterialRoutes: asFunction(MaterialRoutes).singleton(),
     CompraRoutes: asFunction(CompraRoutes).singleton(),
-    DetCompraRoutes: asFunction(DetCompraRoutes).singleton()
+    DetCompraRoutes: asFunction(DetCompraRoutes).singleton(),
+    UnidadRoutes: asFunction(UnidadRoutes).singleton()
   })
   .register({
     // Registrar repositorios
@@ -104,7 +107,8 @@ container
     ProveedorRepository: asClass(ProveedorRepository).singleton(),
     MaterialRepository: asClass(MaterialRepository).singleton(),
     CompraRepository: asClass(CompraRepository).singleton(),
-    DetCompraRepository: asClass(DetCompraRepository).singleton()
+    DetCompraRepository: asClass(DetCompraRepository).singleton(),
+    UnidadesRepositoty: asClass(UnidadesRepositoty).singleton()
   })
   .register({
     // Registrar business
@@ -115,7 +119,8 @@ container
     ProveedorBusiness: asClass(ProveedorBusiness).singleton(),
     MaterialBusiness: asClass(MaterialBusiness).singleton(),
     CompraBusiness: asClass(CompraBusiness).singleton(),
-    DetCompraBusiness: asClass(DetCompraBusiness).singleton()
+    DetCompraBusiness: asClass(DetCompraBusiness).singleton(),
+    UnidadBusiness: asClass(UnidadBusiness).singleton()
   })
   .register({
     // Registrar servicios
@@ -126,7 +131,8 @@ container
     ProveedorService: asClass(ProveedorService).singleton(),
     MaterialService: asClass(MaterialService).singleton(),
     CompraService: asClass(CompraService).singleton(),
-    DetCompraService: asClass(DetCompraService).singleton()
+    DetCompraService: asClass(DetCompraService).singleton(),
+    UnidadService: asClass(UnidadService).singleton()
   });
 
 module.exports = container;

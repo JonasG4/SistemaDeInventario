@@ -17,6 +17,7 @@ import {
   Category,
   CategoryOutlined
 } from "@mui/icons-material";
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -55,6 +56,12 @@ export default function Layout({ children }) {
       icon: <StoreMallDirectoryOutlined className={`${iconStyle}`} />,
       iconSelected: <StoreMallDirectory className={`${iconSelectStyle}`} />,
       to: "/materiales",
+    },
+    {
+      title: "Compras",
+      icon: <ShoppingBagIcon className={`${iconStyle}`} />,
+      iconSelected: <ShoppingBagIcon className={`${iconSelectStyle}`} />,
+      to: "/compras",
     },
     {
       title: "Categorias",

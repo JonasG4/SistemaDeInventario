@@ -10,6 +10,7 @@ import * as sessionActions from "./store/session";
 import ListaUsuarios from "./components/usuarios/listaUsuarios";
 import ListaProveedores from "./components/proveedores/listaProveedores"
 import ListaMateriales from "./components/materiales/listaMateriales";
+import { ShoppingList } from './components/compras/ShoppingList';
 import Login from "./components/auth/login";
 import Dashboard from "./components/dashboard";
 import Layout from "./components/shared/Layout";
@@ -43,6 +44,7 @@ function Sidebar() {
         <Route path="/proveedores" element={<ListaProveedores />} />
 
         <Route path="/materiales" element={<ListaMateriales />} />
+        <Route path="/compras" element={<ShoppingList />} />
       </Routes>
     </Layout>
   );
