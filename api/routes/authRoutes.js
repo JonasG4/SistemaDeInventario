@@ -9,16 +9,17 @@ module.exports = function ({ AuthController }) {
     (req, res) => {
       console.log(req.usuario);
 
-      if(!req.usuario){
+      if (!req.usuario) {
         return res.status(404).json({
-          'msg': 'El token no existe'
-        })
+          msg: "El token no existe",
+        });
       }
       return res.status(200).json(req.usuario);
     }
   );
   router.post("/login", AuthController.login.bind(AuthController));
-  router.delete("/logout");
+
+  router.delete("/logout", AuthController.logout.bind(AuthController));
 
   return router;
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { removerUser } from '../../store/session';
-import {useDispatch} from 'react-redux'
+import { logout } from "../../store/session";
+import { useDispatch } from "react-redux";
 
 import {
   Menu,
@@ -26,12 +26,14 @@ export default function Layout({ children }) {
   const iconSelectStyle = "w-5 !fill-sky-600";
   const { pathname } = useLocation();
   let navigate = useNavigate();
+
   const dispatch = useDispatch();
 
-
-  const logout = () => {
-    return dispatch(removerUser()).then(() => navigate('/login'));
-  }
+  const removeUser = async() => {
+    return await dispatch(logout()).then(() => {
+      navigate("/login");
+    });
+  };
 
   const Menus = [
     {
@@ -97,7 +99,7 @@ export default function Layout({ children }) {
                 !sidebarOpen && "w-0 inline opacity-0 ml-0 pointer-events-none"
               } ml-3 origin-left duration-100 ease-in font-bold  whitespace-nowrap`}
             >
-             Muebleria Perez
+              Muebleria Perez
             </span>
           </div>
 
@@ -132,7 +134,7 @@ export default function Layout({ children }) {
             {/* LOGOUT */}
             <li
               className={`w-full cursor-pointer flex items-center py-6 text-sm text-slate-500 mt-auto pl-8`}
-              onClick={() => logout}
+              onClick={() => removeUser()}
             >
               <ExitToAppOutlined className={`${iconStyle} !fill-sky-600`} />
               <p

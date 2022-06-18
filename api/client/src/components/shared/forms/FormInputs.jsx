@@ -62,8 +62,8 @@ const InputPassword = (props) =>{
 const InputSearchWithFilter = (props) =>{ 
     return (
         <div className='relative'>
-            <Search className='absolute left-4 top-[10px] !text-[18px] !fill-slate-600' />
-            <input type="text" className='bg-slate-300 bg-opacity-60 rounded px-2 h-[35px] pl-12 pr-12 outline-none text-sm w-[250px]' placeholder='Búsqueda'/>
+            <Search className='absolute left-4 top-[10px] !text-[18px] !fill-slate-600'/>
+            <input type="text" className='bg-slate-300 bg-opacity-60 rounded px-2 h-[35px] pl-12 pr-12 outline-none text-sm w-[250px]' placeholder='Búsqueda' onChange={props.onChange}/>
             <Tune className="absolute right-4 top-[10px] !text-[18px] !fill-slate-600"/>
        </div>
     );

@@ -1,4 +1,6 @@
-import { Pagination } from "@mui/material";
+import { Pagination, PaginationItem } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Delete, FilterList, Search, Tune } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -11,11 +13,25 @@ import { Navigate } from "react-router-dom";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios.list);
+
   const [searchText, setSearchText] = useState("");
+
+  const [page, setPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const rowsPerPage = 20;
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch, usuarios]);
+
+  const count = Math.round(usuarios.length / rowsPerPage) + 1;
+
+  const handleChangePage = (event, value) => {
+    setCurrentPage(value);
+    setPage(value - 1);
+  };
 
   return (
     <div className="min-w-full flex flex-col">
@@ -31,6 +47,7 @@ export default function Usuarios() {
               type="text"
               className="bg-slate-300 bg-opacity-60 rounded px-2 h-[35px] pl-12 pr-12 outline-none text-sm w-[250px]"
               placeholder="Búsqueda"
+              onChange={() => {}}
             />
             <Tune className="absolute right-4 top-[10px] !text-[18px] !fill-slate-600" />
           </div>
@@ -61,32 +78,34 @@ export default function Usuarios() {
           </thead>
           <tbody>
             {/* MAPEO DE LA LISTA DE USUARIOS */}
-            {Object.values(usuarios).map((usuario, index) => (
-              <tr className="odd:bg-slate-100" key={index}>
-                <td className="border-r-[1px] px-6 py-4">
-                  <input type={"checkbox"} />
-                </td>
-                <td className="px-6 py-4 text-sm text-cyan-800">
-                  {usuario.nombre}
-                </td>
-                <td className="px-6 py-4 text-sm text-cyan-800">
-                  {usuario.apellido}
-                </td>
-                <td className="px-6 py-4 text-sm text-cyan-800">
-                  {usuario.email}
-                </td>
-                <td className="px-6 py-4 text-sm text-cyan-800">
-                  {usuario.Role.nombre}
-                </td>
-                <td className="px-6 py-4text-sm text-cyan-800">
-                  {usuario.estado === 1 ? "Activo" : "Desactivado"}
-                </td>
-                <td className="px-6 py-4 flex items-center justify-center gap-2">
-                  <ActualizarUsuario id={usuario.id_usuario} />
-                  <DeleteUsuario id={usuario.id_usuario} />
-                </td>
-              </tr>
-            ))}
+            {Object.values(usuarios)
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((usuario, index) => (
+                <tr className="odd:bg-slate-100" key={index}>
+                  <td className="border-r-[1px] px-6 py-4">
+                    <input type={"checkbox"} />
+                  </td>
+                  <td className="px-6 py-4 text-sm text-cyan-800">
+                    {usuario.nombre}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-cyan-800">
+                    {usuario.apellido}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-cyan-800">
+                    {usuario.email}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-cyan-800">
+                    {usuario.Role.nombre}
+                  </td>
+                  <td className="px-6 py-4text-sm text-cyan-800">
+                    {usuario.estado === 1 ? "Activo" : "Desactivado"}
+                  </td>
+                  <td className="px-6 py-4 flex items-center justify-center gap-2">
+                    <ActualizarUsuario id={usuario.id_usuario} />
+                    <DeleteUsuario id={usuario.id_usuario} />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -96,7 +115,15 @@ export default function Usuarios() {
           {usuarios.length > 1 ? " elementos" : " elemento"}
         </p>
         <div>
-          <Pagination count={3} className={`text-slate-600`} />
+          <Pagination
+            count={count}
+            page={currentPage}
+            onChange={handleChangePage}
+            className={`text-slate-600`}
+            variant="outlined"
+            color="primary"
+            siblingCount={2}
+          />
         </div>
       </div>
     </div>

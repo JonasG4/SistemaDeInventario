@@ -81,7 +81,7 @@ class AuthController {
 
   logout(_req, res) {
     res.clearCookie("token");
-    return res.json({ msg: "success" });
+    return res.status(200).json({ msg: "success" });
   }
 }
 
